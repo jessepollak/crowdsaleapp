@@ -38,21 +38,26 @@ function displayQR(req, res, error, data) {
   }
   else {
     console.log(data);
-    destination = data.input_address;
-    uri = 'bitcoin:' + destination + '?label=Augur';
-    console.log(uri);
-    req.user.customData.btcAddress = destination;
-    req.user.customData.personWhoReferred = referral;
-    req.user.save(function(err){
-      if(err){
-        if(err.developerMessage){
-          console.error(err);
+    if(!data) {
+      res.redirect('/');
+    }
+    else {
+      destination = data.input_address;
+      uri = 'bitcoin:' + destination + '?label=Augur';
+      console.log(uri);
+      req.user.customData.btcAddress = destination;
+      req.user.customData.personWhoReferred = referral;
+      req.user.save(function(err){
+        if(err){
+          if(err.developerMessage){
+            console.error(err);
+          }
         }
-      }
-    });
-    console.log(req.user.customData.btcAddress)
-    var string = qrcode(uri);
-    res.render('dashboard', { src: string, uri: uri, address: destination});
+      });
+      console.log(req.user.customData.btcAddress)
+      var string = qrcode(uri);
+      res.render('dashboard', { src: string, uri: uri, address: destination});
+    }
   }
 };
 

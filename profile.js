@@ -45,15 +45,17 @@ function renderForm(req,res,locals){
           }
         });
       }
-      time = data.txs[0].time;
-      console.log(time);
-      if(!req.user.customData.time) {
-        req.user.customData.time = time;
-        req.user.save(function(err){
-          if(err){
-            console.error(err);
-          }
-        });
+      if(data.txs[0]) {
+        time = data.txs[0].time;
+        console.log(time);
+        if(!req.user.customData.time) {
+          req.user.customData.time = time;
+          req.user.save(function(err){
+            if(err){
+              console.error(err);
+            }
+          });
+        }        
       }
       res.render('profile', extend({
         title: 'My Profile',
