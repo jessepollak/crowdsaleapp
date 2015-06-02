@@ -195,6 +195,7 @@ router.post('/logout', function(req, res) {
       req.app.user = '';
       req.app.get('stormpathApplication').user = '';
       req.stormpathSession.user = '';
+      res.redirect('/');
     } else {
       console.log(body['error']);
       res.send('bye');
