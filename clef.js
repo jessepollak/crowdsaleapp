@@ -51,7 +51,7 @@ function getAccount(email, app, req, callback) {
     // will basically try to authenticate an acc. w/ this email & clefID, if returns an error
     // upon auth then acc w/ that email already exists but not a clef acc.
     if(accounts.items[0].givenName) {
-      setAccountName(accounts[0].givenName, callback); 
+      setAccountName(accounts.items[0].givenName, callback); 
     }
     if(accounts.size == 0) {
       setAccountName(0, callback);
