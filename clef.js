@@ -50,9 +50,9 @@ function getAccount(email, app, req, callback) {
     console.log(accounts);
     // will basically try to authenticate an acc. w/ this email & clefID, if returns an error
     // upon auth then acc w/ that email already exists but not a clef acc.
-    accounts.each(function (account, index) {
-      setAccountName(account.givenName, callback);
-    });
+    if(accounts[0].givenName) {
+      setAccountName(accounts[0].givenName, callback); 
+    }
     if(accounts.size == 0) {
       setAccountName(0, callback);
     }
@@ -163,6 +163,7 @@ router.get('/', function(req, res) {
         }
         else {
           res.redirect('/clef');
+          console.log('redirecting');
         }
       });
   });
