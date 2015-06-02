@@ -4,6 +4,7 @@ html
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
       rel='stylesheet'
     )
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   body
     div.container
 
@@ -28,6 +29,23 @@ html
               name='address',
               type='text',
               value=address)
+        div.form-group
+          label.col-sm-4 Bitcoin Spent on Crowdsale (in Satoshis)
+          div.col-sm-8
+            input.form-control(placeholder=0,
+              required=false,
+              name='bitoinBalance',
+              type='number',
+              value=bitcoinBalance)
+        div.form-group
+          label.col-sm-4 Referral Link
+          div.col-sm-8
+            input.form-control(placeholder=0,
+              required=false,
+              name='referralCode',
+              type='text',
+              readonly='readonly',
+              value='localhost:3000/ref?id='+referralCode)
         div.form-group
           div.col-sm-offset-4.col-sm-8
             button.login.btn.btn-primary(type='submit') Save

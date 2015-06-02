@@ -2,6 +2,7 @@ html
   head
     title=title
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   body
     div.container
       div.jumbotron
@@ -11,12 +12,47 @@ html
           p Welcome, #{user.fullName}
           p
             a.small(href="profile") Edit my profile
+          p
+            a.small(href="dashboard") Dashboard
           a.btn.btn-primary(href="/logout") Logout
         else
           p Welcome to our crowdsale, ready to get started?
           p
+            <div float="right">
             a.btn.btn-primary(href="/login") Login now
+            br
+            br
+            <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://localhost:3000/clef" data-type="register"></script>
+            </div>
           p
             span.small Don't have an account?
             span &nbsp;
-            a.small(href="/register") Register now
+            span #[a.checkbox]
+               label
+               input(type='checkbox', name='checkbox', id='agreement' value='test')
+            span &nbsp;
+            a.small(href="/legal", target="_blank") I read the terms
+            span &nbsp;
+            br
+            a.small(href="/register", id="link") Register now
+            a.small(href="/", id="fakeReg") Register now
+            script(type='text/javascript').
+              var chk = document.getElementById("agreement");
+              var anchor = document.getElementById("link");
+              anchor.style.display = "none";
+              anchor.onclick = function(e){
+                e.preventDefault();
+              }
+
+              chk.onclick = function(){
+                  if(chk.checked){
+                      anchor.style.display = "inline";
+                      document.getElementById("fakeReg").style.display = "none"
+                    anchor.onclick = "";
+                  }
+                  else {
+                    anchor.style.display = "none"
+                    document.getElementById("fakeReg").style.display = "inline"
+                  }
+              }
+            p <font size="-1">Need help? Email #[a(href="mailto:team@augur.net") team@augur.net] or message joeykrug on Skype</font>

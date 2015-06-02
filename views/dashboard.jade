@@ -2,16 +2,54 @@ doctype html
 html(lang="en")
   head
     title= pageTitle
-    script(type='text/javascript').
-      if (foo) {
-         bar(1 + 5)
-      }
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   body
-    h1 Augur crowdsale page
-    #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Send us all your monies
+    <div style="background:#602a52 !important" class="jumbotron">
+    <h1 style="color:white"> Augur crowdsale page </h1>
+    p.class.text-justify
+      a(href='#{uri}') #{uri}
+    p
+      <div class = "row">
+      <div class="col-xs-5 col-sm-4 col-md-3 col-lg-2">
+      <a href="#" class="thumbnail">
+      <img src = '#{src}'>
+      </a>
+      </div>
+      </div>
+    span &nbsp;
+    br
+    p
+      <a href="/profile" class="btn btn-primary" role="button"> Submit Ethereum Address </a>
+    br
+    br
+    br
+    </div>
+
+
+  script.
+    function Redirect() {
+      window.location="http://localhost:3000/profile";
+    }
+    var x = setInterval(function() {
+      var addr =!{JSON.stringify(address)}
+      var url = 'https://api.chain.com/v1/bitcoin';
+      url += '/addresses/' + addr;
+      url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data) {
+          if(data.unconfirmed_received > 0) {
+            document.write("You sent " + data.unconfirmed_received + " satoshis and will be redirected to profile page in 10 sec.");
+            setTimeout('Redirect()', 10000);
+            clearInterval(x);
+          }
+        },
+        error: function(req, msg, err) {
+          console.log(err);
+        }
+      });
+    }, 3000);
+    $(document).ready();
