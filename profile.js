@@ -27,15 +27,30 @@ function renderForm(req,res,locals){
   console.log(bitcoinAddress);
   blockexplorer.getAddress("e5dfea4d-ff2a-4b3a-8cff-91feb2d9b910", bitcoinAddress, function(error, data) {
       console.log(data);
-      btcBalance = data.total_received;
-      if(req.user.customData.balance < btcBalance) {
-        req.user.customData.balance = btcBalance;
-        req.user.save(function(err){
-          if(err){
-            console.error(err);
+      if(data) {
+        btcBalance = data.total_received;
+        if(req.user.customData.balance < btcBalance) {
+          req.user.customData.balance = btcBalance;
+          req.user.save(function(err){
+            if(err){
+              console.error(err);
+            }
+          });
+        } 
+        if(data.txs[0]) {
+          time = data.txs[0].time;
+          console.log(time);
+          if(!req.user.customData.time) {
+            req.user.customData.time = time;
+            req.user.save(function(err){
+              if(err){
+                console.error(err);
+              }
+            });
           }
-        });
+        }
       }
+
       if(!req.user.customData.referralCode) {
         req.user.customData.referralCode = req.user.email + shortid.generate();
         console.log(req.user.customData.referralCode);
@@ -44,25 +59,13 @@ function renderForm(req,res,locals){
             console.error(err);
           }
         });
-      }
-      if(data.txs[0]) {
-        time = data.txs[0].time;
-        console.log(time);
-        if(!req.user.customData.time) {
-          req.user.customData.time = time;
-          req.user.save(function(err){
-            if(err){
-              console.error(err);
-            }
-          });
-        }        
-      }
+      } 
       res.render('profile', extend({
         title: 'My Profile',
         address: req.user.customData.address,
         bitcoinBalance: btcBalance,
         referralCode: req.user.customData.referralCode
-      },locals||{}));
+      },locals||{}));       
   });
 }
 
