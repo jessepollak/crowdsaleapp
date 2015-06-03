@@ -39,7 +39,7 @@ function createAccount(account, email, clefID, req, res, app) {
   req.app.get('stormpathApplication').createAccount(account, function(err, account) {
     if (err) throw err;
     console.log(account)
-    var account = authenticate(email, clefID, req, res, app, req);
+    var account = authenticate(email, clefID, req, res, app);
     return account;
   });
 }
@@ -60,7 +60,6 @@ function getAccount(email, app, req, callback) {
 }
 
 function setAccountName(name, callback) {
-  console.log(accountName);
   if(!accountName) {
     accountName = name;
     callback();
