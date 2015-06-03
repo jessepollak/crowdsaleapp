@@ -60,10 +60,8 @@ function getAccount(email, app, req, callback) {
 }
 
 function setAccountName(name, callback) {
-  if(!accountName) {
     accountName = name;
     callback();
-  }
 }
 
 //using username and password
