@@ -168,39 +168,4 @@ router.get('/', function(req, res) {
   });
 });
 
-/**
- * Handles logout hook requests sent by Clef when a user logs out on their phone.
- *
- * This method looks up a user by their `clefID` and updates the database to
- * indicate that they've logged out.
- *
- * For more info, see http://docs.getclef.com/v1.0/docs/database-logout
- */
- // this path is /clef/logout
-router.post('/logout', function(req, res) {
-  var token = req.param('logout_token');
-  var logoutURL = 'https://clef.io/api/v1/logout';
-  var form = {
-    app_id: APP_ID,
-    app_secret: APP_SECRET,
-    logout_token: token
-  };
-
-  request.post({url: logoutURL, form:form}, function(err, response, body) {
-    var response = JSON.parse(body);
-    console.log(err);
-    console.log(response);
-    if (response.success) {
-      res.locals.user = '';
-      req.app.user = '';
-      req.app.get('stormpathApplication').user = '';
-      req.stormpathSession.user = '';
-      res.redirect('/');
-    } else {
-      console.log(body['error']);
-      res.send('bye');
-    }
-  });
-});
-
 module.exports = router
