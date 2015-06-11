@@ -8,8 +8,8 @@ var crypto = require('crypto')
 var csrf = require('csurf');
 //var nodestormpath = require('stormpath');
 
-var APP_ID = '988fdd39fb3a41d1e273270577abb062',
-    APP_SECRET = '87b0f79780ba6e1be3d87d58144e8b0f';
+var APP_ID = process.env.CLEFID,
+    APP_SECRET = process.env.CLEFSECRET;
 
 var accountName;
 
@@ -37,7 +37,7 @@ function stormpathLoginReg(first, last, email, clefID, req, res, app) {
 
 function createAccount(account, email, clefID, req, res, app) {
   req.app.get('stormpathApplication').createAccount(account, function(err, account) {
-    if (err) throw err;
+    if (err) console.log(err);
     console.log(account)
     var account = authenticate(email, clefID, req, res, app);
     return account;
@@ -46,7 +46,7 @@ function createAccount(account, email, clefID, req, res, app) {
 
 function getAccount(email, app, req, callback) {
   req.app.get('stormpathApplication').getAccounts({email: email}, function(err, accounts) {
-    if (err) throw err;
+    if (err) console.log(err);
     console.log(accounts);
     // will basically try to authenticate an acc. w/ this email & clefID, if returns an error
     // upon auth then acc w/ that email already exists but not a clef acc.
@@ -128,7 +128,7 @@ router.get('/', function(req, res) {
 
   //console.log(state.toString());
 
-  if (!checkToken(state, '24JFSJFIOH@sf09a82Secnorjwrj24LFOSfjAugur')) {
+  if (!checkToken(state, process.env.CSRFSALT)) {
       return res.status(403).send("Oops, the state parameter didn't match what was passed in to the Clef button.");
   }
 

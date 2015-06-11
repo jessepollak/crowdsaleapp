@@ -25,7 +25,7 @@ var profileForm = forms.create({
 function renderForm(req,res,locals){
   var bitcoinAddress = req.user.customData.btcAddress;
   console.log(bitcoinAddress);
-  blockexplorer.getAddress("e5dfea4d-ff2a-4b3a-8cff-91feb2d9b910", bitcoinAddress, function(error, data) {
+  blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
       console.log(data);
       if(data) {
         btcBalance = data.total_received;
