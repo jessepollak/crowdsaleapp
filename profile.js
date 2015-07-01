@@ -23,6 +23,8 @@ var profileForm = forms.create({
 // as any situation-specific locals
 
 function renderForm(req,res,locals){
+  var AugurBalance;
+  var repPercentage = 0;
   var bitcoinAddress = req.user.customData.btcAddress;
   console.log(bitcoinAddress);
   blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
@@ -51,6 +53,12 @@ function renderForm(req,res,locals){
         }
       }
 
+      blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
+        if(data) {
+          AugurBalance = data.total_received;   
+        }
+      });
+
       if(!req.user.customData.referralCode) {
         req.user.customData.referralCode = req.user.email + shortid.generate();
         console.log(req.user.customData.referralCode);
@@ -59,12 +67,16 @@ function renderForm(req,res,locals){
             console.error(err);
           }
         });
-      } 
+      }
+      if(AugurBalance) {
+        repPercentage = req.user.customData.balance / AugurBalance;
+      }
       res.render('profile', extend({
         title: 'My Profile',
         address: req.user.customData.address,
         bitcoinBalance: btcBalance/100000000,
-        referralCode: req.user.customData.referralCode
+        referralCode: req.user.customData.referralCode,
+        repPercent: repPercentage
       },locals||{}));       
   });
 }

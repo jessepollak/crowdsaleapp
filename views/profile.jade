@@ -36,6 +36,7 @@ html
               required=false,
               name='bitoinBalance',
               type='number',
+              readonly='readonly',
               value=bitcoinBalance)
         div.form-group
           label.col-sm-4 Referral Link
@@ -46,6 +47,15 @@ html
               type='text',
               readonly='readonly',
               value='localhost:3000/ref?id='+referralCode)
+        div.form-group
+          label.col-sm-4 Rep % Currently Owned
+          div.col-sm-8
+            input.form-control(placeholder=0,
+              required=false,
+              name='repOwned',
+              type='number',
+              readonly='readonly',
+              value=repPercent)
         div.form-group
           div.col-sm-offset-4.col-sm-8
             button.login.btn.btn-primary(type='submit') Save
