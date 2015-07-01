@@ -63,7 +63,7 @@ function renderForm(req,res,locals){
       res.render('profile', extend({
         title: 'My Profile',
         address: req.user.customData.address,
-        bitcoinBalance: btcBalance,
+        bitcoinBalance: btcBalance/100000000,
         referralCode: req.user.customData.referralCode
       },locals||{}));       
   });
