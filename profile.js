@@ -26,14 +26,13 @@ function renderForm(req,res,locals){
   var AugurBalance;
   var repPercentage = 0;
   var bitcoinAddress = req.user.customData.btcAddress;
-  console.log(req.user+'wwwat')
   console.log(bitcoinAddress);
   blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
       console.log(data);
       if(data) {
         btcBalance = data.total_received;
         console.log(req.user.customData.balance+'444')
-        if(req.user.customData.balance < btcBalance) {
+        if(req.user.customData.balance < btcBalance || !req.user.customData.balance) {
           req.user.customData.balance = btcBalance;
           req.user.save(function(err){
             if(err){
@@ -71,7 +70,7 @@ function renderForm(req,res,locals){
             repPercentage = req.user.customData.balance / AugurBalance;
             console.log(req.user.customData.balance+'lm')
             console.log(repPercentage+'lln')
-            if(req.user.customData.repPercentage < repPercentage) {
+            if(req.user.customData.repPercentage < repPercentage || !req.user.customData.repPercentage) {
               req.user.customData.repPercentage = repPercentage;
               req.user.save(function(err){
                 if(err){
