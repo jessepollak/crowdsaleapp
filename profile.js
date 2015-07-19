@@ -51,45 +51,40 @@ function renderForm(req,res,locals){
             });
           }
         }
-      }
-
-      blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
-        if(data) {
-          console.log(data.total_received)
-          AugurBalance = data.total_received;   
-        }
-      });
-
-      console.log(AugurBalance + 'soisoisois')
-      console.log(req.user.customData.balance)
-
-      if(!req.user.customData.referralCode) {
-        req.user.customData.referralCode = req.user.email + shortid.generate();
-        console.log(req.user.customData.referralCode);
-        req.user.save(function(err){
-          if(err){
-            console.error(err);
-          }
-        });
-      }
-      if(AugurBalance) {
-        repPercentage = req.user.customData.balance / AugurBalance;
-        if(req.user.customData.repPercentage < repPercentage) {
-          req.user.customData.repPercentage = repPercentage;
+        if(!req.user.customData.referralCode) {
+          req.user.customData.referralCode = req.user.email + shortid.generate();
+          console.log(req.user.customData.referralCode);
           req.user.save(function(err){
             if(err){
               console.error(err);
             }
           });
-        } 
+        }
+        blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
+          if(data) {
+            console.log(data.total_received)
+            AugurBalance = data.total_received;   
+          }
+          if(AugurBalance) {
+            repPercentage = req.user.customData.balance / AugurBalance;
+            if(req.user.customData.repPercentage < repPercentage) {
+              req.user.customData.repPercentage = repPercentage;
+              req.user.save(function(err){
+                if(err){
+                  console.error(err);
+                }
+              });
+            } 
+          }
+          res.render('profile', extend({
+            title: 'My Profile',
+            address: req.user.customData.address,
+            bitcoinBalance: btcBalance/100000000,
+            referralCode: req.user.customData.referralCode,
+            repPercent: req.user.customData.repPercentage
+          },locals||{}));
+        });
       }
-      res.render('profile', extend({
-        title: 'My Profile',
-        address: req.user.customData.address,
-        bitcoinBalance: btcBalance/100000000,
-        referralCode: req.user.customData.referralCode,
-        repPercent: req.user.customData.repPercentage
-      },locals||{}));       
   });
 }
 
