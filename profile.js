@@ -55,7 +55,7 @@ function renderForm(req,res,locals){
 
       blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
         if(data) {
-          console.log(data)
+          console.log(data.total_received)
           AugurBalance = data.total_received;   
         }
       });
