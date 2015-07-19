@@ -33,7 +33,6 @@ function displayQR(req, res, error, data) {
     uri = 'bitcoin:' + destination + '?label=Augur';
     console.log(uri);
     plainAddr = '' + destination
-    console.log(referral+'lllm');
     var string = qrcode(uri);
     res.render('dashboard', { src: string, uri: uri, address: address, plainAddr: plainAddr});
   }
