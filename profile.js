@@ -26,7 +26,7 @@ function renderForm(req,res,locals){
   var AugurBalance;
   var repPercentage = 0;
   var bitcoinAddress = req.user.customData.btcAddress;
-  console.log(req.user.customData.balance+'wwwat')
+  console.log(req.user+'wwwat')
   console.log(bitcoinAddress);
   blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
       console.log(data);
