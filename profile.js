@@ -31,6 +31,7 @@ function renderForm(req,res,locals){
       console.log(data);
       if(data) {
         btcBalance = data.total_received;
+        console.log(req.user.customData.balance+'444')
         if(req.user.customData.balance < btcBalance) {
           req.user.customData.balance = btcBalance;
           req.user.save(function(err){
