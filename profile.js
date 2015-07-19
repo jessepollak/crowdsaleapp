@@ -75,15 +75,24 @@ function renderForm(req,res,locals){
                   console.error(err);
                 }
               });
-            } 
+            }
+            res.render('profile', extend({
+              title: 'My Profile',
+              address: req.user.customData.address,
+              bitcoinBalance: btcBalance/100000000,
+              referralCode: req.user.customData.referralCode,
+              repPercent: repPercentage
+            },locals||{})); 
           }
-          res.render('profile', extend({
-            title: 'My Profile',
-            address: req.user.customData.address,
-            bitcoinBalance: btcBalance/100000000,
-            referralCode: req.user.customData.referralCode,
-            repPercent: req.user.customData.repPercentage
-          },locals||{}));
+          else {
+            res.render('profile', extend({
+              title: 'My Profile',
+              address: req.user.customData.address,
+              bitcoinBalance: btcBalance/100000000,
+              referralCode: req.user.customData.referralCode,
+              repPercent: req.user.customData.repPercentage
+            },locals||{}));
+          }
         });
       }
   });
