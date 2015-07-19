@@ -62,12 +62,13 @@ function renderForm(req,res,locals){
         }
         blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
           if(data) {
-            console.log(data.total_received+'lol')
             AugurBalance = data.total_received;
           }
           console.log(AugurBalance+'lll')
           if(AugurBalance) {
             repPercentage = req.user.customData.balance / AugurBalance;
+            console.log(req.user.customData.balance+'lm')
+            console.log(repPercentage+'lln')
             if(req.user.customData.repPercentage < repPercentage) {
               req.user.customData.repPercentage = repPercentage;
               req.user.save(function(err){
