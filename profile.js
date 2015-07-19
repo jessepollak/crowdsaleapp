@@ -59,6 +59,9 @@ function renderForm(req,res,locals){
         }
       });
 
+      console.log(AugurBalance)
+      console.log(req.user.customData.balance)
+
       if(!req.user.customData.referralCode) {
         req.user.customData.referralCode = req.user.email + shortid.generate();
         console.log(req.user.customData.referralCode);
