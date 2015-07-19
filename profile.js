@@ -70,13 +70,21 @@ function renderForm(req,res,locals){
       }
       if(AugurBalance) {
         repPercentage = req.user.customData.balance / AugurBalance;
+        if(req.user.customData.repPercentage < repPercentage) {
+          req.user.customData.repPercentage = repPercentage;
+          req.user.save(function(err){
+            if(err){
+              console.error(err);
+            }
+          });
+        } 
       }
       res.render('profile', extend({
         title: 'My Profile',
         address: req.user.customData.address,
         bitcoinBalance: btcBalance/100000000,
         referralCode: req.user.customData.referralCode,
-        repPercent: repPercentage
+        repPercent: req.user.customData.repPercentage
       },locals||{}));       
   });
 }
