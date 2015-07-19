@@ -60,7 +60,7 @@ function renderForm(req,res,locals){
         }
       });
 
-      console.log(AugurBalance)
+      console.log(AugurBalance + 'soisoisois')
       console.log(req.user.customData.balance)
 
       if(!req.user.customData.referralCode) {
