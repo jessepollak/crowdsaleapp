@@ -83,7 +83,7 @@ function renderForm(req,res,locals){
               address: req.user.customData.address,
               bitcoinBalance: btcBalance/100000000,
               referralCode: req.user.customData.referralCode,
-              repPercent: repPercentage
+              repPercent: repPercentage*100
             },locals||{})); 
           }
           else {
@@ -92,7 +92,7 @@ function renderForm(req,res,locals){
               address: req.user.customData.address,
               bitcoinBalance: btcBalance/100000000,
               referralCode: req.user.customData.referralCode,
-              repPercent: req.user.customData.repPercentage
+              repPercent: req.user.customData.repPercentage*100
             },locals||{}));
           }
         });
