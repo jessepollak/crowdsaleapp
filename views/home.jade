@@ -28,7 +28,7 @@ html
             a.small(href="dashboard" style="color:white") Dashboard
           a.btn.btn-primary(href="/logout") Logout
         else
-          p Welcome to our crowdsale, ready to get started?
+          p(style="color:white") Welcome to our crowdsale, ready to get started?
           p
             .alert.alert-info.alert-dismissible(role='alert')
               strong Heads up for first time users!
@@ -40,8 +40,8 @@ html
             br
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="register"></script>
             </div>
-          p
-            span.small Don't have an account?
+          p(style="color:white")
+            span.small(style="color:white") Don't have an account?
             span &nbsp;
             span #[a.checkbox]
                label
@@ -72,7 +72,8 @@ html
                   }
               }
             p <font size="-1">Need help? Email #[a(href="mailto:team@augur.net") team@augur.net] or message joeykrug on Skype</font>
-    script.
+    // Start of Tawk.to Script
+    script(type='text/javascript').
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
       (function(){
       var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -82,3 +83,4 @@ html
       s1.setAttribute('crossorigin','*');
       s0.parentNode.insertBefore(s1,s0);
       })();
+    // End of Tawk.to Script
