@@ -11,11 +11,16 @@ html(lang="en")
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'es,ja,ko,pt,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
     div(style="background:#b57ca6 !important" class="jumbotron" text-align:center align="center" margin:auto)
       div.container
         <h1 style="color:white"> Augur crowdsale page </h1>
+        p
+          .alert.alert-info.alert-dismissible(role='alert')
+            strong Heads up!
+            |  Send Bitcoin to this address (scan the QR with your wallet, click on the link above, or copy paste the address below).  You'll receive rep proportional to how much Bitcoin you send.
         p.class.text-center
           a(style="color:white" href='#{uri}') #{uri}
         p.class.text-center

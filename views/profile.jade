@@ -11,6 +11,7 @@ html
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'es,ja,ko,pt,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
     div(style="background:#f5deed !important")
@@ -26,6 +27,14 @@ html
         if saved
           div.alert.alert-success
             span Your profile has been saved
+
+        p
+          .alert.alert-info.alert-dismissible(role='alert')
+            strong Heads up!
+            |  Now or sometime before the Augur launch, submit your Ethereum address here then click save.  
+          .alert.alert-warning.alert-dismissible(role='alert')
+            strong Warning!
+            |  Make sure this is an Ethereum address you have access to call contracts with (meaning: it's not an exchange address).  You'll need it for reporting!
 
         form.login-form.form-horizontal(method='post', role='form')
 
