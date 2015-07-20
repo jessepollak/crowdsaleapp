@@ -13,8 +13,8 @@ html(lang="en")
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
-    div.container
-      div(style="background:#b57ca6 !important" class="jumbotron" text-align:center align="center" margin:auto)
+    div(style="background:#b57ca6 !important" class="jumbotron" text-align:center align="center" margin:auto)
+      div.container
         <h1 style="color:white"> Augur crowdsale page </h1>
         p.class.text-center
           a(style="text-wrap:unrestricted" href='#{uri}') #{uri}
@@ -29,7 +29,9 @@ html(lang="en")
         span &nbsp;
         br
         p(style="text-wrap:unrestricted color:white")
-          Address Send funds to: #{plainAddr}
+          <h5 style="color:white">
+            Address Send funds to: #{plainAddr}
+          </h5>
         br
         p.class.text-center
           <a href="/profile" class="btn btn-primary" role="button"> Submit Ethereum Address </a>
