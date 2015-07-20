@@ -11,12 +11,12 @@ html
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
-    div.container
+    div.container(style="background-color: #B57CA6 !important")
       div.jumbotron
-        h1 Hello there!
+        h1(style="color:white") Hello there!
 
         if user
-          p Welcome, #{user.fullName}
+          p(style="color:white") Welcome, #{user.fullName}
           p
             a.small(href="profile") Edit my profile
           p
