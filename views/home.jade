@@ -9,6 +9,7 @@ html
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'es,ja,ko,pt,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
     div.container
@@ -25,6 +26,11 @@ html
         else
           p Welcome to our crowdsale, ready to get started?
           p
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>Warning!</strong> Better check yourself, you're not looking too good.
+            </div>
+          p
             <div float="right">
             a.btn.btn-primary(href="/login") Login now
             br
@@ -38,11 +44,11 @@ html
                label
                input(type='checkbox', name='checkbox', id='agreement' value='test')
             span &nbsp;
-            a.small(href="/legal", target="_blank") I read the terms
+            a.small(style="color:white" href="/legal", target="_blank") I read the terms
             span &nbsp;
             br
-            a.small(href="/register", id="link") Register now
-            a.small(href="/", id="fakeReg") Register now
+            a.small(style="color:white" href="/register", id="link") Register now
+            a.small(style="color:white" href="/", id="fakeReg") Register now
             script(type='text/javascript').
               var chk = document.getElementById("agreement");
               var anchor = document.getElementById("link");
