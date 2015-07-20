@@ -13,11 +13,11 @@ html(lang="en")
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
 
   body
-    div.container
-      div(style="background:#f5deed !important" class="jumbotron" text-align:center align="center" margin:auto)
+    div(style="background:#f5deed !important" class="jumbotron" text-align:center align="center" margin:auto)
+      div.container
         <h1 style="color:white"> Augur crowdsale page </h1>
         p.class.text-center
-          a(href='#{uri}') #{uri}
+          a(style="text-wrap:unrestricted" href='#{uri}') #{uri}
         p.class.text-center
           <div class = "row">
           <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
@@ -28,7 +28,7 @@ html(lang="en")
           </div>
         span &nbsp;
         br
-        p.class.text-center
+        p(style="text-wrap:unrestricted")
           Address Send funds to: #{plainAddr}
         br
         p.class.text-center
