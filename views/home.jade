@@ -26,10 +26,11 @@ html
         else
           p Welcome to our crowdsale, ready to get started?
           p
-            <div class="alert alert-warning alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <strong>Warning!</strong> Better check yourself, you're not looking too good.
-            </div>
+            .alert.alert-warning.alert-dismissible(role='alert')
+              button.close(type='button', data-dismiss='alert', aria-label='Close')
+                span(aria-hidden='true') ×
+              strong Warning!
+              |  Better check yourself, you're not looking too good.
           p
             <div float="right">
             a.btn.btn-primary(href="/login") Login now
