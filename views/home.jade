@@ -72,9 +72,487 @@ html
                   }
               }
             p <font size="-1">Need help? Email #[a(href="mailto:team@augur.net") team@augur.net] or message joeykrug on Skype</font>
-    div
-      p
-        iframe(width='800', height='166', scrolling='no', frameborder='no', src= 'http://wwww.w3schools.com/')
+    #page
+      // SCHEDULE SECTION
+      section.schedule-section
+        .container
+          .row
+            .col-xs-12
+              span.main-image(data-picture='', data-alt='Augur')
+                span(data-src='img/Augur_Logo.png')
+                span(data-src='img/Augur_Logo.png', data-media='(min-device-pixel-ratio: 1), (-webkit-min-device-pixel-ratio: 1), (min-resolution: 192dpi)')
+                noscript
+                  img(src='img/Augur_Logo.png', alt='Augur')
+          .row
+            .col-md-8.col-sm-10.col-md-offset-2.col-sm-offset-1
+              .buy-box.pre-sale
+                iframe(style='border:none;overflow:hidden;', scrolling='no', width='332', height='162', src='http://www.worldclock.com/preview2.php?lo1=ffffff&lo2=14&lo3=normal&sa1=b57ca6&sa2=22&sa3=bold&ta1=b57ca6&ta2=22&ta3=normal&ce1=ffffff&ce2=320&ce3=150&ce4=0&ar1=ffffff&se1=580&dil=en&title=Augur-Crowdsale&day=21&month=08&year=2015&hour=0&minute=0')
+                a(href='http://www.worldclock.com/current-local-time-in-london_580.htm', style='position:absolute; top:0; left:0; display:inline-block; width:320px; height:150px; z-index:50;', target='_blank', rel='nofollow', title='by worldclock.com')
+              .holder-schedule
+                h6.smallest-headings PRICE SCHEDULE
+                .boxes
+                  div
+                    span.active
+                      strong True Augur
+                      br
+                      |  June 15th
+                    p
+                      span Crowdsale starts: 
+                      | 10% Discount Buy
+                  div
+                    span.active
+                      strong Prophet
+                      br
+                      |  June 20th
+                    p
+                      | Phase One:
+                      br
+                      |  7% Discount By-In
+                  .date
+                    span.active
+                      strong Nate Silver
+                      br
+                      |  June 30th
+                    p
+                      | Phase 2:
+                      br
+                      | 5% Discount Buy-In
+                  div
+                    span.active
+                      strong Weatherman
+                      br
+                      |  July 15th
+                    p
+                      | Discounts end.
+                      br
+                      |  Sale ends July 30th.
+          hr.divider.two
+      // SHEDULE SECTION END
+      // TABS WITH VIDEO SECTION
+      section.tabs-video-section
+        .container
+          .row
+            .col-xs-12
+              h2.smaller-headings-section Project Introduction
+              #video-tabs.tabs
+                #tabs-1
+                  .video-box
+                    .embed-responsive.embed-responsive-16by9
+                      iframe.embed-responsive-item(src='https://www.youtube.com/embed/dweuE2DC4DI?rel=0')
+                #tabs-2
+                  .video-box
+                    .embed-responsive.embed-responsive-16by9
+                      p
+                        iframe.embed-responsive-item(src='https://www.youtube.com/embed/yegyih591Jo?rel=0')
+                #tabs-3
+                  .video-box
+                    .embed-responsive.embed-responsive-16by9
+                      p
+                        iframe.embed-responsive-item(src='https://www.youtube.com/embed/sCms-snzHk4?rel=0')
+                #tabs-4
+                  .video-box
+                    .embed-responsive.embed-responsive-16by9
+                      p
+                        iframe.embed-responsive-item(src='https://www.youtube.com/embed/jYLgRo8upO0?rel=0')
+                ul
+                  li
+                    a(href='#tabs-1')
+                      span An Introduction to a Decentralized Prediction Market
+                  li
+                    a(href='#tabs-2')
+                      span How Augur Works
+                  li
+                    a(href='#tabs-3')
+                      span How Reputation Works
+                  li
+                    a(href='#tabs-4')
+                      span An Introduction to Prediction Markets
+          br
+          br
+          br
+          hr.divider.two
+      // TABS WITH VIDEO SECTION END
+      // SUMMARY AND FEATURES SECTION
+      section.summary-section
+        .container
+          .row
+            .col-sm-6.col-md-5.col-md-offset-1
+              .wrapper-column
+                h3.col-headings SUMMARY
+                p
+                  | Augur is the future of forecasting. Instead of depending on pundits and polls, both of which are notoriously poor sources for predictions of future outcomes, Augur unleashes the power of prediction markets, harnessing the “wisdom of crowds.” As opposed to trusting individuals, whose intentions cannot be known, Augur forces market participants to put their money where there mouth is. This leads to reliable pricing on event predictions.
+                p
+                  | Unlike most databases, the blockchain is distributed across the Internet, making it practically impossible to shut down. Whereas the Bitcoin blockchain is a record of financial transactions, Augur is designed to be a robust prediction market platform. Entries stored in Augur can never be changed or deleted. This makes Augur an ideal platform for a wide range of forecasting applications, including politics, sports, product prototyping, climatology, academic research, business management, and much, much more.
+            .col-sm-6.col-md-5
+              .wrapper-column
+                h3.col-headings FEATURES
+                div
+                  h6.smallest-headings GLOBAL MARKET OF PREDICTIONS
+                  p
+                    | Anyone with an Internet connection and digital currency can participate in what will be an expansive number of markets
+                div
+                  h6.smallest-headings REWARDS AT EVERY STEP
+                  p
+                    | Be rewarded for creating markets, making accurate predictions, and if you hold REP, reporting on the outcome of events (half of the trading fees weighted by how much REP you have).
+                div
+                  h6.smallest-headings BUILT FOR BITCOINERS
+                  p
+                    | Although we determined that Ethereum would be better to build Augur on, we are focused on making this a tool for bitcoiners, too.  We plan on accepting Bitcoin, Ether, and stable cryptocurrencies in markets.
+                div
+                  h6.smallest-headings UNPRECEDENTED OPPORTUNITY
+                  p
+                    | A prediction market platform like this has never existed. What will you forecast?
+          .row
+            .col-md-10.col-md-offset-1
+              .holder-links.cf
+                a.icon-github(href='https://github.com/augurproject/') GitHub
+                a.icon-twitter(href='https://twitter.com/augurproject') Twitter
+                a.icon-facebook(href='https://www.facebook.com/augurproject') Facebook
+                a(href='http://www.augur.net') http://www.augur.net
+                .links
+                  a(href='http://www.augur.link/augur.pdf') Whitepaper (PDF)
+                  a(href='http://www.augur.net/blog/what-is-reputation')  All About Reputation 
+          hr.divider.two
+      // SUMMARY AND FEATURES SECTION END
+      // ABOUT AUGUR SECTION
+      section.about-factom-section
+        .container
+          .row
+            .col-xs-12
+              h2.smaller-headings-section About Augur
+          .row
+            .col-sm-6.col-md-5.col-md-offset-1
+              .holder-team
+                h3.col-headings TEAM
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/chris.png')
+                      span(data-src='img/teamMembers/chris.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/chris.png', alt='illustration')
+                  h4.name
+                    a(href='#') Chris Calderon
+                  span.position Core Developer
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/perry.png')
+                      span(data-src='img/teamMembers/perry.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/perry.png', alt='illustration')
+                  h4.name
+                    a(href='#') Perry Despeignes
+                  span.position Special Ops
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/jermey.png')
+                      span(data-src='img/teamMembers/jermey.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/jermey.png', alt='illustration')
+                  h4.name
+                    a(href='#') Jeremy Gardner
+                  span.position Operations Lead
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/joey.png')
+                      span(data-src='img/teamMembers/joey.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/joey.png', alt='illustration')
+                  h4.name
+                    a(href='#') Joey Krug
+                  span.position Lead Developer
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/scott.png')
+                      span(data-src='img/teamMembers/scott.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/scott.png', alt='illustration')
+                  h4.name
+                    a(href='#') Scott Leonard
+                  span.position UI Lead
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/jack.png')
+                      span(data-src='img/teamMembers/jack.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/jack.png', alt='illustration')
+                  h4.name
+                    a(href='#') Jack Peterson
+                  span.position Lead Developer
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/tony.png')
+                      span(data-src='img/teamMembers/tony.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/tony.png', alt='illustration')
+                  h4.name
+                    a(href='#') Tony Sakich
+                  span.position Marketing Lead
+                br
+                p
+                  a(href='http://www.augur.net/#team') See More...
+                  br
+            .col-sm-6.col-md-5
+              .holder-press-media
+                h3.col-headings PRESS & MEDIA
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/bitcoinmag.png')
+                      span(data-src='img/newsOutlets/bitcoinmag.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/bitcoinmag.png', alt='illustration')
+                  h4.link-heading
+                    a(href='https://bitcoinmagazine.com/20166/augur-answers-tough-questions-blockchain-based-prediction-markets/') Augur Answers Tough Questions For Blockchain-Based Prediction Markets
+                  span.date April 27, 2015
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/btctalk.png')
+                      span(data-src='img/newsOutlets/btctalk.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/btctalk.png', alt='illustration')
+                  h4.link-heading
+                    a(href='https://bitcointalk.org/index.php?topic=860629.0') Augur - A Decentralized Predicion Market: Discussion Thread
+                  span.date November 14th, 2014
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/newsbtc.png')
+                      span(data-src='img/newsOutlets/newsbtc.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/newsbtc.png', alt='illustration')
+                  h4.link-heading
+                    a(href='http://www.newsbtc.com/2015/01/21/interview-augur/') NewsBTC: An Interview With Augur Team
+                  span.date January 21th, 2015
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/coindesk.png')
+                      span(data-src='img/newsOutlets/coindesk.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/coindesk.png', alt='illustration')
+                  h4.link-heading
+                    a(href='http://www.coindesk.com/augur-future-blockchain-prediction-market/') Augur Bets on Bright Future for Blockchain Prediction Markets
+                  span.date March 1, 2015
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/cointelegraph.png')
+                      span(data-src='img/newsOutlets/cointelegraph.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/cointelegraph.png', alt='illustration')
+                  h4.link-heading
+                    a(href='http://cointelegraph.com/news/114028/augur-creates-first-contract-with-ethereum') Augur Creates First Contract with Ethereum
+                  span.date April 21, 2015
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/ybitcoin.png')
+                      span(data-src='img/newsOutlets/ybitcoin.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/ybitcoin.png', alt='illustration')
+                  h4.link-heading
+                    a(href='http://imgur.com/a/2E8w9') Augur: Welcome To The Future Of Forecasting
+                  span.date March 31, 2015
+                .single-media-wrap
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/newsOutlets/hackernews.png')
+                      span(data-src='img/newsOutlets/hackernews.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/newsOutlets/hackernews.png', alt='illustration')
+                  h4.link-heading
+                    a(href='https://news.ycombinator.com/item?id=8620201') Wager on Anything Using Bitcoin – Decentralized, Trustless Prediction Markets
+                  span.date December 6th, 2014
+                #holder-team
+                  br
+                  a(href='http://www.augur.net/#press') See More...
+        hr.divider.two
+    // ABOUT AUGUR SECTION END
+    // ROADMAP SECTION
+    section.roadmap-section
+      .container
+        .row
+          .col-xs-12
+            h2.smaller-headings-section Roadmap
+        .row
+          .col-md-10.col-md-offset-1
+            .all-options-boxes
+              div
+                .top
+                  .date-box
+                    span
+                    span Q2'15
+                  span.text Augur Alpha Release
+                .bottom
+                  span
+                    strong 33% Funds
+                    |  dispersed
+              div
+                .top
+                  .date-box
+                    span
+                    span Q3'15
+                  span.text Augur Beta Release
+                .bottom
+                  span
+                    strong 33% Funds
+                    |  dispersed
+              div
+                .top
+                  .date-box
+                    span
+                    span Q1'16
+                  span.text Augur Full Launch
+                .bottom
+                  span
+                    strong 33% Funds
+                    |  dispersed
+        .row
+          .col-md-10.col-lg-10.col-md-offset-1
+            .wrapper-info
+              div
+                h6.smallest-headings Augur Alpha Release
+                p
+                  | [A]. The beta release of the Augur client includes having various subsystems operational.
+                  br
+                  |            (i). Creation of binary markets on Augur
+                  br
+                  |            (ii). Wagering in markets on Augur
+                  br
+                  |            (iii). Reporting on outcomes of events
+                  br
+                  |            (iv). Closing of markets and payouts
+              div
+                h6.smallest-headings Augur Beta Release
+                p
+                  | [A]. Accounts on Augur website similar to blockchain.info wallets
+                  br
+                  | [B]. Scalar, categorical, and multidimensional markets in UI
+                  br
+                  | [C]. An improved, cheaper, and more accurate consensus algorithm
+                  br
+                  | [D]. All current alpha bugs fixed
+              div
+                h6.smallest-headings Augur Full Release
+                p
+                  | [A]. Augur goes live on the Ethereum network
+                  br
+                  | [B]. Launch contingent upon passing and fixing any issues raised in security audits and doing months of testnet testing
+        hr.divider.two
+    // ROADMAP SECTION END
+    // FUND MANAGEMENT SECTION
+    section.fund-management-section
+      .container
+        .row
+          .col-xs-12
+            h2.smaller-headings-section Fund management
+        .row
+          .col-md-10.col-md-offset-1
+            p
+              | All proceeds received from Augur software sale are under control of a multi-sig wallet, that will require co-signature of at least 2 signers out of 3 signers listed below.
+            .row.holder-people
+              .col-sm-4
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/augurfoundation.png')
+                      span(data-src='img/teamMembers/augurfoundation.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/augurfoundation.png', alt='illustration')
+                  h4.name
+                    a(href='#') Forecast Foundation
+                  span.position Foundation, Augur
+                  span.role
+                    strong Role:
+                    |  Fund Reciever
+              .col-sm-4
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/jermey.png')
+                      span(data-src='img/teamMembers/jermey.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/jermey.png', alt='illustration')
+                  h4.name
+                    a(href='#') Jeremy Gardner
+                  span.position Blockchain Researcher
+                  span.role
+                    strong Role:
+                    |  Technical Evaluator
+              .col-sm-4
+                .member-team
+                  a(href='#')
+                    span.img(data-picture='', data-alt='illustration')
+                      span(data-src='img/teamMembers/bitgo.png')
+                      span(data-src='img/teamMembers/bitgo.png', data-media='(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)')
+                      noscript
+                        img(src='img/teamMembers/bitgo.png', alt='illustration')
+                  h4.name
+                    a(href='#') BitGo
+                  span.position Multi-Sig Provider
+                  span.role
+                    strong Role:
+                    |  Key Manager
+        hr.divider.two
+    // FUND MANAGEMENT SECTION END
+    // FUND ALLOCATION SECTION
+    section.fund-allocation-section
+      .container
+        .row
+          .col-xs-12
+            h2.smaller-headings-section Fund allocation
+        .row
+          .col-md-10.col-md-offset-1
+            p
+              | The proceeds from this software sale will be primarily used for making sure Augur developers are incentivized to constantly improve the product beyond their initial release. Specific costs are found from the development of the network infrastructure, paying for servers (for our blockchain.info style solution for people who don't want to run the full client), paying for bandwidth, marketing, as well as legal and business development.
+            .holder-progress-bars
+              div
+                h6.smallest-headings Development Compensation & Ops
+                .progress-bar.dark
+                  span(style='width:75%') 75%
+              div
+                h6.smallest-headings Legal Contingency Fund
+                .progress-bar.normal
+                  span(style='width:20%') 15%
+              div
+                h6.smallest-headings Marketing & Community Outreach
+                .progress-bar.light
+                  span(style='width:10%') 10%
+        hr.divider.two
+    // FUND ALLOCATION SECTION END
+    // TOKEN MANAGEMENT SECTION
+    section.token-management-section
+      .container
+        .row
+          .col-xs-12
+            h2.smaller-headings-section Token Issuance
+        .row
+          .col-md-10.col-md-offset-1
+            p
+              | Reputation (REP) is the token that allows an individual to report on the outcome of events (and receive part of the system’s trading fees as compensation.) All 11,000,000 REP tokens that will ever exist will during the software sale will be distributed at the end of the software sale. The distribution of tokens will be constantly shifting in real-time as new participants buy into the system using our novel “Live-Action” token distribution software to create a true free market pricing.
+            .holder-progress-bars
+              div
+                h6.smallest-headings Public Software Sale
+                .progress-bar.dark
+                  span(style='width:80%') 80%
+              div
+                h6.smallest-headings Early Angels & Founding Team
+                .progress-bar.normal
+                  span(style='width:16%') 16%
+              div
+                h6.smallest-headings Forecast Foundation
+                .progress-bar.light
+                  span(style='width:4%') 4%
+    // TOKEN MANAGEMENT SECTION END
+
 
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
