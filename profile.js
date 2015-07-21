@@ -26,12 +26,9 @@ function renderForm(req,res,locals){
   var AugurBalance;
   var repPercentage = 0;
   var bitcoinAddress = req.user.customData.btcAddress;
-  console.log(bitcoinAddress);
   blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
-      console.log(data);
       if(data) {
         btcBalance = data.total_received;
-        console.log(req.user.customData.balance+'444')
         if(req.user.customData.balance < btcBalance || !req.user.customData.balance) {
           req.user.customData.balance = btcBalance;
           req.user.save(function(err){
@@ -42,7 +39,6 @@ function renderForm(req,res,locals){
         } 
         if(data.txs[0]) {
           time = data.txs[0].time;
-          console.log(time);
           if(!req.user.customData.time) {
             req.user.customData.time = time;
             req.user.save(function(err){
@@ -54,7 +50,6 @@ function renderForm(req,res,locals){
         }
         if(!req.user.customData.referralCode) {
           req.user.customData.referralCode = req.user.email + shortid.generate();
-          console.log(req.user.customData.referralCode);
           req.user.save(function(err){
             if(err){
               console.error(err);
@@ -65,11 +60,9 @@ function renderForm(req,res,locals){
           if(data) {
             AugurBalance = data.total_received;
           }
-          console.log(AugurBalance+'lll')
           if(AugurBalance) {
+            // will need to push to remove this cose after sale done
             repPercentage = req.user.customData.balance / AugurBalance;
-            console.log(req.user.customData.balance+'lm')
-            console.log(repPercentage+'lln')
             if(req.user.customData.repPercentage < repPercentage || !req.user.customData.repPercentage) {
               req.user.customData.repPercentage = repPercentage;
               req.user.save(function(err){

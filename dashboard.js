@@ -25,26 +25,21 @@ function displayQR(req, res, error, data) {
   // all we have to do is set the properties that we care
   // about and then call save(s) on the user object:
   var address = req.user.customData.btcAddress;
-  console.log(address);
   if(address) {
     // do nothing, address already exists
-    console.log(address);
     destination = address;
     uri = 'bitcoin:' + destination + '?label=Augur';
-    console.log(uri);
     plainAddr = '' + destination
     var string = qrcode(uri);
     res.render('dashboard', { src: string, uri: uri, address: address, plainAddr: plainAddr});
   }
   else {
-    console.log(data);
     if(!data) {
       res.redirect('/');
     }
     else {
       destination = data.input_address;
       uri = 'bitcoin:' + destination + '?label=Augur';
-      console.log(uri);
       req.user.customData.btcAddress = destination;
       req.user.customData.personWhoReferred = referral;
       req.user.save(function(err){
@@ -54,7 +49,6 @@ function displayQR(req, res, error, data) {
           }
         }
       });
-      console.log(req.user.customData.btcAddress)
       var string = qrcode(uri);
       res.render('dashboard', { src: string, uri: uri, address: destination});
     }
