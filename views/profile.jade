@@ -65,7 +65,7 @@ html
                 readonly='readonly',
                 value='augur-crowdsale.herokuapp.com/ref?id='+referralCode)
           div.form-group
-            label.col-sm-4 Rep % Currently Owned
+            label(class="col-sm-4" data-toggle="tooltip" title="May be inaccurate") Rep % Currently Owned
             div.col-sm-8
               input.form-control(placeholder=0,
                 required=false,
@@ -88,3 +88,7 @@ html
       s1.setAttribute('crossorigin','*');
       s0.parentNode.insertBefore(s1,s0);
       })();
+    script.
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
