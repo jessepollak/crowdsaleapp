@@ -57,7 +57,7 @@ function displayQR(req, res, error, data) {
 
 
 function getAddressQR(req, res) {
-  receive.create('14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
+  receive.create('1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp', function(error, data) {
       displayQR(req, res, error, data);
   });
 }

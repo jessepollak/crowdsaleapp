@@ -56,7 +56,7 @@ function renderForm(req,res,locals){
             }
           });
         }
-        blockexplorer.getAddress(process.env.BLOCKCHAIN, '14UBitMVc5nPbSH2TumKAJa2FzA28Nf3ji', function(error, data) {
+        blockexplorer.getAddress(process.env.BLOCKCHAIN, '1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp', function(error, data) {
           if(data) {
             AugurBalance = data.total_received;
           }
