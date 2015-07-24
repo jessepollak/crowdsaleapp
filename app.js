@@ -58,7 +58,6 @@ app.get('/ref*', function(req, res) {
 });
 
 app.get('/blockchain', function(req, res) {
-  console.log(req.destination_address);
   res.send("*ok*");
 });
 
