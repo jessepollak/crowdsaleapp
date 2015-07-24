@@ -79,6 +79,7 @@ html
               button.login.btn.btn-primary(type='submit') Save
           div.pull-right
             a(href="/") Return to home page
+            <a href="#" data-toggle="tooltip" title="Hooray!">Hover over me</a>
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
       (function(){
@@ -90,6 +91,8 @@ html
       s0.parentNode.insertBefore(s1,s0);
       })();
     script.
+      // Select all elements with data-toggle="tooltips" in the document
+      $('[data-toggle="tooltip"]').tooltip(); 
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
       })
