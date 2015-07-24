@@ -20,7 +20,7 @@ html(lang="en")
         p
           .alert.alert-info.alert-dismissible(role='alert')
             strong Heads up!
-            |  Send Bitcoin to this address (either scan the QR with your wallet, click on the link above, or copy paste the address below).  You'll receive rep proportional to how much Bitcoin you send.
+            |  Send Bitcoin to this address (either scan the QR with your wallet, click on the link above, or copy paste the address below).  You'll receive rep proportional to how much Bitcoin you send (unless it's less than .0005 btc, which blockchain.info's payments api can't handle).
         p.class.text-center
           a(style="color:white" href='#{uri}') #{uri}
         p.class.text-center
