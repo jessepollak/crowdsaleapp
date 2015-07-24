@@ -13,8 +13,6 @@ html
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-    script.
-      $("[data-toggle=tooltip]").tooltip();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
   body(style="background-color: #f5deed !important" bgcolor="#f5deed")
@@ -70,7 +68,7 @@ html
                 value='augur-crowdsale.herokuapp.com/ref?id='+referralCode)
           div.form-group
             label.col-sm-4 
-              <a href="#" data-toggle="tooltip" title="Some tooltip text!">Rep % Currently Owned</a>
+              <a href="#" data-toggle="tooltip-top" title="This won't be accurate until after block confirmations">Rep % Currently Owned</a>
             div.col-sm-8
               input.form-control(placeholder=0,
                 required=false,
@@ -83,7 +81,6 @@ html
               button.login.btn.btn-primary(type='submit') Save
           div.pull-right
             a(href="/") Return to home page
-            a(href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="1st line of text <br> 2nd line of text") Hover over me
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
       (function(){
@@ -95,10 +92,6 @@ html
       s0.parentNode.insertBefore(s1,s0);
       })();
 
-    script(type='text/javascript').
-      $(function () {
-      $("[rel='tooltip']").tooltip();
-      });
     script.
       $(document).ready(function() {        
         $("[data-toggle=tooltip]").tooltip();
