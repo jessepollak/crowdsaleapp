@@ -1,7 +1,7 @@
 var express = require('express');
 var stormpath = require('express-stormpath');
 var blockchain = require('blockchain.info');
-var receive = new blockchain.Receive('http://www.google.com/roflcopta');
+var receive = new blockchain.Receive('http://augur-crowdsale.herokuapp.com/blockchain');
 var qrcode = require('yaqrcode');
 
 var router = express.Router();

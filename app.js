@@ -57,6 +57,11 @@ app.get('/ref*', function(req, res) {
   });
 });
 
+app.get('/blockchain', function(req, res) {
+  console.log(req.destination_address);
+  res.send("*ok*");
+});
+
 app.listen(process.env.PORT || 3000);
 
 module.exports = router
