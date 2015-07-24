@@ -40,6 +40,7 @@ function displayQR(req, res, error, data) {
     else {
       destination = data.input_address;
       uri = 'bitcoin:' + destination + '?label=Augur';
+      plainAddr = '' + destination
       req.user.customData.btcAddress = destination;
       req.user.customData.personWhoReferred = referral;
       req.user.save(function(err){
@@ -50,7 +51,7 @@ function displayQR(req, res, error, data) {
         }
       });
       var string = qrcode(uri);
-      res.render('dashboard', { src: string, uri: uri, address: destination});
+      res.render('dashboard', { src: string, uri: uri, address: destination, plainAddr: plainAddr});
     }
   }
 };
