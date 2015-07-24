@@ -91,13 +91,8 @@ html
       s1.setAttribute('crossorigin','*');
       s0.parentNode.insertBefore(s1,s0);
       })();
-    script.
-      // Select all elements with data-toggle="tooltips" in the document
-      $('[data-toggle="tooltip"]').tooltip(); 
+      
+    script(type='text/javascript').
       $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
-    script.
-      $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip(); 
+      $("[rel='tooltip']").tooltip();
       });
