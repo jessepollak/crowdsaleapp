@@ -11,7 +11,6 @@ html
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-    script(src="https://clef.io/v3/clef.js")
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
   body(style="background-color: #ffeeff !important" bgcolor="#ffeeff")
@@ -46,10 +45,10 @@ html
             span(style="color:white; float:right; display:inline; font-size:larger") Don't have an account?
             br
             br
-            br
-            <a class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-custom="true" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms">Log in with your phone (Clef)</a>
-
+            <a href="http://augur-crowdsale.herokuapp.com/clef" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline">
+            <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
             a.small(style="color:white; display:inline; float:right; margin-top:-5.2%" href="/register" id="link" class="btn btn-primary" data-toggle="tooltip-top" title="By registering you confirm you've read the terms") Register now
+            </a>
             </div>
             br
             br
