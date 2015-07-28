@@ -83,21 +83,23 @@ html
         $("[data-toggle=tooltip-top]").tooltip();
       });
     script.
-          var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
-          var url = 'https://api.chain.com/v1/bitcoin';
-          url += '/addresses/' + addr;
-          url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
-          $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-              if(data.total_received > 0) {
-                amount = data.total_received;
-                document.getElementById('amtRaised').text(amount+'ffsfsf');
+          var x = function() {
+            var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
+            var url = 'https://api.chain.com/v1/bitcoin';
+            url += '/addresses/' + addr;
+            url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+            $.ajax({
+              url: url,
+              type: 'GET',
+              success: function(data) {
+                if(data.total_received > 0) {
+                  amount = data.total_received;
+                  document.getElementById('amtRaised').text(amount+'ffsfsf');
+                }
+              },
+              error: function(req, msg, err) {
+                console.log(err);
               }
-            },
-            error: function(req, msg, err) {
-              console.log(err);
-            }
-          });
-        $(document).ready();
+            });
+          };
+          $(document).ready();
