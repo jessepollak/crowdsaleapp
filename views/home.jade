@@ -93,7 +93,7 @@ html
               success: function(data) {
                 if(data.total_received > 0) {
                   amount = data.total_received;
-                  $("p.amtRaised").text(amount+'ffsfsf');
+                  $("div.amtRaised").text("<p>This is a test.</p>");
                 }
               },
               error: function(req, msg, err) {
