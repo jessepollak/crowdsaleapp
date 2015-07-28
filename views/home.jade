@@ -94,7 +94,7 @@ html
               success: function(data) {
                 if(data.total_received > 0) {
                   amount = data.total_received;
-                  document.getElementById('amtRaised').text(amount+'ffsfsf');
+                  $(document).getElementById('amtRaised').text(amount+'ffsfsf');
                 }
               },
               error: function(req, msg, err) {
