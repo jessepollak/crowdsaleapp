@@ -16,7 +16,7 @@ html
   body(style="background-color: #ffeeff !important" bgcolor="#ffeeff")
     div.container
       div.jumbotron(style="background-color: #602A52 !important")
-        h1(style="color:white; display:inline-block; line-height: 50px; padding-right: 12%") Hello there!
+        h1(style="color:white; display:inline-block; line-height: 50px; padding-right: 14%") Hello there!
         img(src="http://i58.tinypic.com/3589te1.png" style="display: inline-block" width="auto" height="137px" alt="Augur Logo")
         if user
           p(style="color:white") Welcome, #{user.fullName}
@@ -47,7 +47,7 @@ html
             br
             br
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
-            a.small(style="color:white; display:inline; float:right; margin-top:-5%" href="/register" id="link" class="btn btn-primary") Register now
+            a.small(style="color:white; display:inline; float:right; margin-top:-5%" href="/register" id="link" class="btn btn-primary" data-toggle="tooltip-top" title="By registering you confirm you've read the terms") Register now
             </div>
             br
             br
