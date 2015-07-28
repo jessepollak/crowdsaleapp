@@ -16,8 +16,9 @@ html
   body(style="background-color: #ffeeff !important" bgcolor="#ffeeff")
     div.container
       div.jumbotron(style="background-color: #602A52 !important")
-        h1(style="color:white") Hello there!
-        img(src="http://i58.tinypic.com/3589te1.png" style="position:relative")
+        div(style="overflow:auto")
+          h1(style="color:white; float:left") Hello there!
+          img(src="http://i58.tinypic.com/3589te1.png" style="position:relative; float:left" alt="Augur Logo")
         if user
           p(style="color:white") Welcome, #{user.fullName}
           p
