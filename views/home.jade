@@ -41,17 +41,16 @@ html
           p(style="color:white")
             <div float="right">
             a.btn.btn-primary(href="/login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline") Login now
-            span(style="color:white; float:right" align="right") Don't have an account?
+            span(style="color:white; float:right") Don't have an account?
             br
             br
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
-            </div>
-          p(style="color:white")
-            span.small(style="color:white") Don't have an account?
-            br
-            span #[a.checkbox]
+            span(style="display:inline; float:right") #[a.checkbox]
                label
                input(type='checkbox', name='checkbox', id='agreement' value='test')
+            </div>
+          p(style="color:white")
+            
             span &nbsp;
             a.small(style="color:white" href="/legal", target="_blank") I read the terms
             span &nbsp;
