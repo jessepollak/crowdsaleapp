@@ -87,13 +87,14 @@ html
             var url = 'https://api.chain.com/v1/bitcoin';
             url += '/addresses/' + addr;
             url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+            console.log('llllll');
             $.ajax({
               url: url,
               type: 'GET',
               success: function(data) {
                 if(data.total_received > 0) {
                   amount = data.total_received;
-                  $("div.amtRaised").text("<p>This is a test.</p>");
+                  $("div.amt-raised").text("<p>This is a test.</p>");
                 }
               },
               error: function(req, msg, err) {
