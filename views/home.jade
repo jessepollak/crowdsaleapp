@@ -41,18 +41,16 @@ html
           p(style="color:white")
             <div>
             a.btn.btn-primary(href="/login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline") Login now
-            span(style="color:white; float:right") Don't have an account?
-            </div>
+            span(style="color:white; float:right; display:inline") Don't have an account?
             br
             br
-            <div>
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
             a.small(style="color:white; display:inline; float:right" href="/register" id="link" class="btn btn-primary") Register now
             </div>
             br
             br
             br
-            a.small(style="color:white" href="/legal", target="_blank") I read the terms
+            a(style="color:white" href="/legal", target="_blank") I read the terms
             br
             br
             br
