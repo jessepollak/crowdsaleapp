@@ -49,7 +49,7 @@ html
             <a href="http://augur-crowdsale.herokuapp.com/clef" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display:inline; float:left">
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
             </a>            
-            a.small(style="color:white; display:inline; float:right" href="/register" id="link" class="btn btn-primary" data-toggle="tooltip-top" title="By registering you confirm you've read the terms") Register now
+            a.small(style="color:white; display:inline; float:right; padding-top:"-1%"" href="/register" id="link" class="btn btn-primary" data-toggle="tooltip-top" title="By registering you confirm you've read the terms") Register now
             </div>
             br
             br
@@ -63,8 +63,7 @@ html
               a.alert-link(href='http://augur.net/blog/ethbuyin') here
             br
             br
-            p(class="amtRaised")
-              Total raised: #{amount}
+            div(class="amt-raised")
     div(style="background-color: transparent; border: 0px none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important")
         iframe(src='https://augursale.divshot.io/pre-sale' seamless width="90%" style="background-color: transparent; border: 0px; none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important" height="5077" scrolling="no")
     script.
