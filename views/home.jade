@@ -40,18 +40,13 @@ html
               |  Make sure to use the same login method each time you login!
           p(style="color:white")
             <div>
-            a.btn.btn-primary(href="/login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline; margin-bottom:150px") Login now
+            a.btn.btn-primary(href="/login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline") Login now
             span(style="color:white; float:right") Don't have an account?
             br
             br
-            <div style="float:left">
+            <div style="float:left; display: inline">
             <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
-            </div>
-            <div style="float:right">
-            span #[a.checkbox]
-               label
-               input(type='checkbox', name='checkbox', id='agreement' value='test')
-            </div>
+            a.small(style="color:white; float:right" href="/register" id="link" class="btn btn-primary") Register now
             </div>
           p(style="color:white")
             span &nbsp;
@@ -59,27 +54,6 @@ html
             span &nbsp;
             br
             br
-            a.small(style="color:white" href="/register", id="link") Register now
-            a.small(style="color:white" href="/", id="fakeReg" class="btn btn-primary") Register now
-            script(type='text/javascript').
-              var chk = document.getElementById("agreement");
-              var anchor = document.getElementById("link");
-              anchor.style.display = "none";
-              anchor.onclick = function(e){
-                e.preventDefault();
-              }
-
-              chk.onclick = function(){
-                  if(chk.checked){
-                      anchor.style.display = "inline";
-                      document.getElementById("fakeReg").style.display = "none"
-                    anchor.onclick = "";
-                  }
-                  else {
-                    anchor.style.display = "none"
-                    document.getElementById("fakeReg").style.display = "inline"
-                  }
-              }
             br
             br
             .alert.alert-info(role='alert')
