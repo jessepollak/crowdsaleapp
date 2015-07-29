@@ -63,7 +63,7 @@ html
               a.alert-link(href='http://augur.net/blog/ethbuyin') here
             br
             div(class="amtRaised" style="color:white; font-size:larger")
-              Total raised: #{amount}
+
     div(style="background-color: transparent; border: 0px none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important")
         iframe(src='https://augursale.divshot.io/pre-sale' seamless width="90%" style="background-color: transparent; border: 0px; none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important" height="5077" scrolling="no")
     script.
@@ -98,6 +98,7 @@ html
               if(data.received > 0) {
                 var amount = data.received;
                 console.log(amount);              
+                $("div.amtRaised").text("<p>Total Raised: #{amount}</p>");
               }
             },
             error: function(req, msg, err) {
