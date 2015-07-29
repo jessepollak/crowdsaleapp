@@ -25,10 +25,12 @@ var profileForm = forms.create({
 function renderForm(req,res,locals){
   var AugurBalance;
   var repPercentage = 0;
+  var unconfirmedBtc;
   var bitcoinAddress = req.user.customData.btcAddress;
   blockexplorer.getAddress(process.env.BLOCKCHAIN, bitcoinAddress, function(error, data) {
       if(data) {
         btcBalance = data.total_received;
+        unconfirmedBtc = data.final_balance;
         if(req.user.customData.balance < btcBalance || !req.user.customData.balance) {
           req.user.customData.balance = btcBalance;
           req.user.save(function(err){
@@ -58,7 +60,7 @@ function renderForm(req,res,locals){
         }
         blockexplorer.getAddress(process.env.BLOCKCHAIN, '1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp', function(error, data) {
           if(data) {
-            AugurBalance = data.total_received;
+            AugurBalance = data.total_received+unconfirmedBtc;
           }
           if(AugurBalance) {
             // will need to push to remove this cose after sale done
