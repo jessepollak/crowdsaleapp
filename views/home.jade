@@ -63,6 +63,10 @@ html
               a.alert-link(href='http://augur.net/blog/ethbuyin') here
             br
             br
+            div(class="amtRaised")
+              Total raised: #{amount}
+            script.
+              x();
     div(style="background-color: transparent; border: 0px none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important")
         iframe(src='https://augursale.divshot.io/pre-sale' seamless width="90%" style="background-color: transparent; border: 0px; none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important" height="5077" scrolling="no")
     script.
@@ -80,3 +84,25 @@ html
       $(document).ready(function() {        
         $("[data-toggle=tooltip-top]").tooltip();
       });
+    script.
+           var x = function() {
+            var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
+            var url = 'https://api.chain.com/v1/bitcoin';
+            url += '/addresses/' + addr;
+            url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+            console.log('llllll')
+            $.ajax({
+              url: url,
+              type: 'GET',
+              success: function(data) {
+                if(data.total_received > 0) {
+                  amount = data.total_received;
+                  $("div.amtRaised").text("<p>This is a test.</p>");
+                }
+              },
+              error: function(req, msg, err) {
+                console.log(err);
+              }
+            });
+          };
+          $(document).ready();
