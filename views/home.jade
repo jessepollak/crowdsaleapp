@@ -98,8 +98,8 @@ html
               if(data.received > 0) {
                 var amount = data.received/100000000;
                 console.log(amount);
-                var amt = amount.toString();
-                $("div.amtRaised").text("Total Raised: #{amt}");
+                var amt = "Total Raised: " + amount.toString();
+                $("div.amtRaised").text(amt);
               }
             },
             error: function(req, msg, err) {
