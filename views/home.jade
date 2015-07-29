@@ -96,9 +96,10 @@ html
               console.log(data);
               console.log(data.toString());
               if(data.received > 0) {
-                var amount = data.received;
-                console.log(amount);              
-                $("div.amtRaised").text("<p>Total Raised: #{amount}</p>");
+                var amount = data.received/100000000;
+                console.log(amount);
+                var amt = amount.toString();
+                $("div.amtRaised").text("Total Raised: #{amt}");
               }
             },
             error: function(req, msg, err) {
