@@ -93,7 +93,9 @@ html
             url: url,
             type: 'GET',
             success: function(data) {
+              console.log('ajax worked')
               if(data.total_received > 0) {
+                console.log(amount);
                 amount = data.total_received;
                 $("div.amtRaised").text("<p>This is a test.</p>");
               }
