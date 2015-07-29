@@ -94,6 +94,8 @@ html
             type: 'GET',
             success: function(data) {
               console.log('ajax worked')
+              console.log(data);
+              console.log(data.toString());
               if(data.total_received > 0) {
                 console.log(amount);
                 amount = data.total_received;
