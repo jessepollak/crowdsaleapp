@@ -1,71 +1,193 @@
 html
   head
-    title=title
+    title="Augur - Fund the Future"
+
+    link(href='/css/style.css', rel='stylesheet')
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    link(href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600', rel='stylesheet')
+    link(href="/css/jquery-ui.structure.min.css")
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     #google_translate_element
     script.
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,de,es,fr,ja,ko,nl,pt,zh-CN,zh-TW,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
-    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
+    script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+    script(src="/js/vendor/jquery-ui.min.js")
+    script(src="/js/vendor/picturefill.js")
+    script.
+      function editEthereumAddress() {
+        $('section.action .ethereum-address').hide();
+        $('section.action form').show();
+      }
+    script.
+      function cancelEdit() {
+        $('section.action .ethereum-address').show();
+        $('section.action form').hide();
+      }
+    script.
+      function shapeshift_click(a,e){e.preventDefault();var link=a.href;window.open(link,'1418115287605','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=0,left=0,top=0');return false;}
 
-  body(style="background-color: #ffeeff !important" bgcolor="#ffeeff")
-    div.container
-      div.jumbotron(style="background-color: #602A52 !important")
-        h1(style="color:white; display:inline-block; line-height: 50px; padding-right: 14%") Hello there!
-        img(src="http://i58.tinypic.com/3589te1.png" style="display: inline-block" width="auto" height="137px" alt="Augur Logo")
+  body
+    section.brand
+      .container
+        img.logo(src="/images/augur_logo_600.png" alt="augur logo")
+        h4 <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised 
+    section.action
+      .container
         if user
-          p(style="color:white") Welcome, #{user.fullName}
-          p
-            .alert.alert-info.alert-dismissible(role='alert')
-              strong Heads up!
-              |  Click on Dashboard to buy in or buy more rep.  Click on edit profile to add your Ethereum address
-          p
-            a.small(href="profile" style="color:white") Edit my profile
-          p
-            a.small(href="dashboard" style="color:white") Dashboard
-          a.btn.btn-primary(href="/logout") Logout
+          h2 Hello, <b>#{ user.fullName }</b>
+          h4 You own <b>#{ repPercentage }% Reputation</b> after spending <b>#{ btcBalance } BTC</b>
+          if ethereumAddress
+            p.ethereum-address Your <b>Ethereum</b> address is <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
+            form.center-block(method='post', role='form', style="display: none;")
+              .input-group
+                input.form-control(name="ethereumAddress", value="#{ ethereumAddress }")
+                span.input-group-btn
+                  button.btn.btn-default(type="submit") Save
+                  button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
+          else
+            form.center-block(method='post', role='form')
+              .input-group
+                input.form-control(name="ethereumAddress", placeholder="Enter your Ethereum address")
+                span.input-group-btn
+                  button.btn.btn-default(type="submit") Save
+          .row
+            .col-sm-12 
+              p
+                img.qrcode.center-block(src="#{ qrCode }")
+              p.buy-uri
+                a(href="#{ buyUri }") #{ btcAddress }
+              p.or or
+              p.shifty-io
+                a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
+                  img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
+              .logout
+                a(href="/logout") logout
         else
-          p(style="color:white") Welcome to our crowdsale, ready to get started?
-          p
-            .alert.alert-info.alert-dismissible(role='alert')
-              strong Heads up for first time users!
-              |  If you don't yet have an account and want to login with google or facebook, click login now.  If you want to create a manual account, click register now the first time.
-            .alert.alert-danger.alert-dismissible(role='alert')
-              strong Warning!
-              |  Make sure to use the same login method each time you login!
-          br
-          p(style="color:white")
-            <div>
-            a.btn.btn-primary(href="/login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display: inline") Login now
-            span(style="color:white; float:right; display:inline; font-size:larger") Don't have an account?
-            br
-            br
-            br
-            <a href="http://augur-crowdsale.herokuapp.com/clef" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms" style="display:inline; float:left">
-            <script type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms"></script>
-            </a>            
-            a.small(style="color:white; display:inline; float:right" href="/register" id="link" class="btn btn-primary" data-toggle="tooltip-top" title="By registering you confirm you've read the terms") Register now
-            </div>
-            br
-            br
-            br
-            a(style="color:white; font-size:larger" href="/legal", target="_blank") Read the terms
-            br
-            br
-            .alert.alert-info(role='alert')
-              strong  Want to buy in with ether? 
-              |   Check out our guide 
-              a.alert-link(href='http://augur.net/blog/ethbuyin') here
-            br
-            div(class="amtRaised" style="color:white; font-size:larger")
+          h2 Join us in <b>making history</b>
+          .row
+            .col-sm-6
+              .intro
+                <p>To continue funding our ambitious project of the World's first decentralized, prediction market, we are selling Reputation tokens in this system.</p>
+                <p>Reputation and it's owners are what compose the distributed oracle and determine the outcome of events.  See the video below for a brief introduction of how this works and <a href="http://www.augur.net/blog/what-is-reputation">our blog post</a> for a more in-depth look.</p>
+            .col-sm-5.col-sm-offset-1
+              p.login
+                a.btn.btn-primary.btn-lg(href="/login") Login and get started!
+              p.disclaimer By logging in you agree to <a href="/legal">the terms</a> of the Augur crowd-sale</p>
+    section.video
+      .container
+        .row
+          .col-xs-12
+            <h3>Reputation in Augur</h3>
+            .wrapper
+              .video
+                iframe(src="https://www.youtube.com/embed/sCms-snzHk4" frameborder="0" allowfullscreen)
 
-    div(style="background-color: transparent; border: 0px none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important")
-        iframe(src='https://augursale.divshot.io/pre-sale' seamless width="90%" style="background-color: transparent; border: 0px; none transparent; padding: 0px; overflow: hidden; margin: auto; display: block !important" height="5077" scrolling="no")
+
+    section.fund-management
+      .container
+        .row
+          .col-xs-12 <h3>Fund management</h3>
+        .row
+          .col-md-12
+            <p>All proceeds received from Augur software sale are under control of a multi-sig wallet, that will require co-signature of at least 2 signers out of 3 signers listed below.</p>
+            .row.holder-people
+              .col-sm-4
+                .member-team
+                  a(href="#")
+                    span.img(data-picture data-alt="illustration")
+                      <span data-src="/images/teamMembers/augurfoundation.png"></span>
+                      <span data-src="/images/teamMembers/augurfoundation.png" data-media="(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)"></span>
+                      noscript
+                        <img src="/images/img/teamMembers/augurfoundation.png" alt="illustration" />
+
+                  <h4><a href="#">Forecast Foundation</a></h4>
+                  <p class="position">Foundation, Augur</p>
+                  <p class="role"><strong>Fund Reciever</strong> </p>
+              .col-sm-4
+                .member-team
+                  a(href="#")
+                    span.img(data-picture data-alt="illustration")
+                      <span data-src="/images/teamMembers/jermey.png"></span>
+                      <span data-src="/images/teamMembers/jermey.png" data-media="(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)"></span>
+                      noscript
+                        <img src="img/teamMembers/jermey.png" alt="illustration" />
+                  <h4><a href="#">Jeremy Gardner</a></h4>
+                  <p class="position">Blockchain Researcher</p>
+                  <p class="role"><strong>Technical Evaluator</strong> </p>
+              .col-sm-4
+                .member-team
+                  a(href="#")
+                    span.img(data-picture data-alt="illustration")
+                      <span data-src="/images/teamMembers/bitgo.png"></span>
+                      <span data-src="/images/teamMembers/bitgo.png" data-media="(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)"></span>
+                      noscript
+                        <img src="img/teamMembers/bitgo.png" alt="illustration" />
+                  <h4><a href="#">BitGo</a></h4>
+                  <p class="position">Multi-Sig Provider</p>
+                  <p class="role"><strong>Key Manager</strong></p>
+
+    section.fund-allocation
+      .container
+        .row
+          .col-xs-12
+            <h3>Fund allocation</h3>
+        .row
+          .col-xs-12
+            <p>The proceeds from this software sale will be primarily used for making sure Augur developers are incentivized to constantly improve the product beyond their initial release. Specific costs are found from the development of the network infrastructure, paying for servers (for our blockchain.info style solution for people who don't want to run the full client), paying for bandwidth, marketing, as well as legal and business development.</p>
+        .row
+          .col-xs-12
+            div
+              <h6>Development Compensation &amp; Ops</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="75%" aria-valuemin="0" aria-valuemax="100" style="width: 75%;")
+                  <span>75%</span>
+            div
+              <h6>Legal Contingency Fund</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%;")
+                  <span>15%</span>
+            div
+              <h6>Marketing & Community Outreach</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;")
+                  <span>10%</span>
+
+    section.token-management
+      .container
+        .row
+          .col-xs-12
+            <h3>Token Issuance</h3>
+        .row
+          .col-xs-12
+            <p>Reputation (REP) is the token that allows an individual to report on the outcome of events (and receive part of the system’s trading fees as compensation.) All 11,000,000 REP tokens that will ever exist will during the software sale will be distributed at the end of the software sale. The distribution of tokens will be constantly shifting in real-time as new participants buy into the system using our novel “Live-Action” token distribution software to create a true free market pricing.
+            </p>
+        .row
+          .col-xs-12
+            div
+              <h6>Public Software Sale</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="80%" aria-valuemin="0" aria-valuemax="100" style="width: 80%;")
+                  <span>80%</span>
+            div
+              <h6>Early Angels & Founding Team</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" style="width: 16%;")
+                  <span>16%</span>
+            div
+              <h6>Forecast Foundation</h6>
+              .progress
+                .progress-bar(role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" style="width: 4%;")
+                <span>4%</span
+
+    footer
+      
+
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
       (function(){
@@ -87,19 +209,13 @@ html
           var url = 'https://api.chain.com/v1/bitcoin';
           url += '/addresses/' + addr;
           url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
-          console.log('llllll')
           $.ajax({
             url: url,
             type: 'GET',
             success: function(data) {
-              console.log('ajax worked')
-              console.log(data);
-              console.log(data.toString());
               if(data.received > 0) {
                 var amount = data.received/100000000;
-                console.log(amount);
-                var amt = "Total Raised: " + amount.toString() + " BTC";
-                $("div.amtRaised").text(amt);
+                $('.amount-raised').text(amount.toString());
               }
             },
             error: function(req, msg, err) {

@@ -6,58 +6,65 @@ var qrcode = require('yaqrcode');
 
 var router = express.Router();
 
-var destination = '';
-var uri;
-
-// Capture all requests
+// capture all requests
 // Should check client-side for payment received
 // if received load profile page automatically
-
 router.all('/', stormpath.authenticationRequired, function(req, res) {
-  //res.render('dashboard', {
-  //  title: 'Dashboard'
-  //});
   getAddressQR(req, res);
 });
 
 function displayQR(req, res, error, data) {
-  // The express-stormpath library will populate req.user,
+
+  // the express-stormpath library will populate req.user,
   // all we have to do is set the properties that we care
-  // about and then call save(s) on the user object:
+  // about and then call save(s) on the user object.
+
   var address = req.user.customData.btcAddress;
-  if(address) {
+  var destination = '';
+  var uri;
+
+  if (address) {
+
     // do nothing, address already exists
     destination = address;
     uri = 'bitcoin:' + destination + '?label=Augur';
-    plainAddr = '' + destination
-    var string = qrcode(uri);
-    res.render('dashboard', { src: string, uri: uri, address: address, plainAddr: plainAddr});
-  }
-  else {
-    if(!data) {
+
+  } else {
+
+    if (!data) {
+
       res.redirect('/');
-    }
-    else {
+
+    } else {
+
       destination = data.input_address;
       uri = 'bitcoin:' + destination + '?label=Augur';
-      plainAddr = '' + destination
+      plainAddr = '' + destination;
+
       req.user.customData.btcAddress = destination;
       req.user.customData.personWhoReferred = referral;
-      req.user.save(function(err){
-        if(err){
-          if(err.developerMessage){
+
+      req.user.save(function(err) {
+
+        if (err) {
+          if (err.developerMessage) {
             console.error(err);
           }
         }
       });
-      var string = qrcode(uri);
-      res.render('dashboard', { src: string, uri: uri, address: destination, plainAddr: plainAddr});
     }
   }
+
+  res.render('/', { 
+    qrCode: qrcode(uri), 
+    uri: uri, 
+    address: destination
+  });
 };
 
 
 function getAddressQR(req, res) {
+
   receive.create('1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp', function(error, data) {
       displayQR(req, res, error, data);
   });
