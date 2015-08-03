@@ -36,7 +36,7 @@ html
     section.brand
       .container
         img.logo(src="/images/augur_logo_600.png" alt="augur logo")
-        h4 <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised 
+       <!-- h4 <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised -->
     section.action
       .container
         if user
@@ -53,7 +53,7 @@ html
           else
             form.center-block(method='post', role='form')
               .input-group
-                input.form-control(name="ethereumAddress", placeholder="Enter your Ethereum address")
+                input.form-control(name="ethereumAddress", placeholder="Enter your Ethereum address" data-toggle="tooltip-left" title="Warning! Make sure this is an Ethereum address you have the private key to (meaning: it's not an exchange address). You'll need it for reporting!")
                 span.input-group-btn
                   button.btn.btn-default(type="submit") Save
           .row
@@ -61,8 +61,13 @@ html
               p
                 img.qrcode.center-block(src="#{ qrCode }")
               p.buy-uri
+<<<<<<< HEAD
                 a(href="#{ buyUri }") #{ btcAddress }
               p.or <b>or</b>
+=======
+                a(href="#{ buyUri }" data-toggle="tooltip-left" title="Send Bitcoin to this address and you'll get rep in proportion to the amount") #{ btcAddress }
+              p.or or
+>>>>>>> 2cb4ad2ff3908adb12a6597bea1391cc46d906ff
               p.shifty-io
                 a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
                   img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
@@ -77,7 +82,7 @@ html
                 <p>Reputation and it's owners are what compose the distributed oracle and determine the outcome of events.  See the video below for a brief introduction of how this works and <a href="http://www.augur.net/blog/what-is-reputation">our blog post</a> for a more in-depth look.</p>
             .col-sm-5.col-sm-offset-1
               p.login
-                a.btn.btn-primary.btn-lg(href="/login") Login and get started!
+                a.btn.btn-primary.btn-lg(href="/login" disabled) Login and get started!
               p.disclaimer By logging in you agree to <a href="/legal">the terms</a> of the Augur crowd-sale</p>
     section.video
       .container
@@ -109,17 +114,6 @@ html
                   <h4><a href="#">Forecast Foundation</a></h4>
                   <p class="position">Foundation, Augur</p>
                   <p class="role"><strong>Fund Reciever</strong> </p>
-              .col-sm-4
-                .member-team
-                  a(href="#")
-                    span.img(data-picture data-alt="illustration")
-                      <span data-src="/images/teamMembers/jermey.png"></span>
-                      <span data-src="/images/teamMembers/jermey.png" data-media="(min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)"></span>
-                      noscript
-                        <img src="img/teamMembers/jermey.png" alt="illustration" />
-                  <h4><a href="#">Jeremy Gardner</a></h4>
-                  <p class="position">Blockchain Researcher</p>
-                  <p class="role"><strong>Technical Evaluator</strong> </p>
               .col-sm-4
                 .member-team
                   a(href="#")
@@ -201,7 +195,7 @@ html
 
     script.
       $(document).ready(function() {        
-        $("[data-toggle=tooltip-top]").tooltip();
+        $("[data-toggle=tooltip-left]").tooltip();
       });
     script.
       $(document).ready(function() {
