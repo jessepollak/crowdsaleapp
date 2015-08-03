@@ -61,7 +61,7 @@ html
               p
                 img.qrcode.center-block(src="#{ qrCode }")
               p.buy-uri
-                a(href="#{ buyUri }") #{ btcAddress }
+                a(href="#{ buyUri }" data-toggle="tooltip-left" title="Send Bitcoin to this address and you'll get rep in proportion to the amount") #{ btcAddress }
               p.or or
               p.shifty-io
                 a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
