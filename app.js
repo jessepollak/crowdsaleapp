@@ -11,7 +11,7 @@ var shortid = require('shortid');
 
 var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
-var receive = new blockchain.Receive('http://augur-crowdsale.herokuapp.com/blockchain');
+var receive = new blockchain.Receive('http://sale.augur.net/blockchain');
 
 var app = module.exports = express();
 
