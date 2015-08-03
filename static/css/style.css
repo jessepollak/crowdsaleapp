@@ -63,7 +63,7 @@ section.action .login {
 	margin-top: 35px;
 }
 section.action .disclaimer {
-	font-size: 124x;
+	font-size: 12px;
 }
 @media (max-width:770px) {
 	section.action .login {
