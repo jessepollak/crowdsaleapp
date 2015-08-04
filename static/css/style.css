@@ -55,7 +55,19 @@ section.brand .logo {
 }
 @media (max-width:500px) {
 	section.brand .logo {
-		width: 100%;
+		width: 90%;
+	}
+	.funds-raised {
+		display: none;
+	}
+	section.brand .timer {
+		zoom: 0.5;
+		-moz-transform: scale(0.5);
+		width: 622px;
+		margin: 100px auto 10px auto;
+	}
+	section.brand h4.sale-starts {
+		font-size: 15px;
 	}
 }
 section.brand h4 {
@@ -66,7 +78,6 @@ section.brand h4 {
 	text-align: center;
 	color: #73606E;
 }
-
 section.action h2 {
 	font-size: 35px;
 	letter-spacing: 1px;
