@@ -83,6 +83,12 @@ app.get('/', function(req, res) {
   }
 });
 
+app.get('/login', function(req, res) {
+  res.render('login') {
+    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
+  }
+})
+
 // handle ethereum address form submission
 app.post('/', function(req, res) {
 
