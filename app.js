@@ -16,7 +16,6 @@ var receive = new blockchain.Receive('http://sale.augur.net/blockchain');
 var SALTCHARS = process.env.SALTCHARS;
 
 var app = module.exports = express();
-console.log(SALTCHARS);
 app.set('views', './views');
 app.set('view engine', 'jade');
 
