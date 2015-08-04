@@ -58,15 +58,18 @@ html
                 span.input-group-btn
                   button.btn.btn-default(type="submit") Save
           .row
-            .col-sm-12 
-              p
-                img.qrcode.center-block(src="#{ qrCode }")
-              p.buy-uri
-                a(href="#{ buyUri }" data-toggle="tooltip-left" title="Send Bitcoin to this address and you'll get rep in proportion to the amount") #{ btcAddress }
-              p.or <b>or</b>
-              p.shifty-io
-                a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
-                  img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
+            .col-sm-12
+              if false
+                p
+                  img.qrcode.center-block(src="#{ qrCode }")
+                p.buy-uri
+                  a(href="#{ buyUri }" data-toggle="tooltip-left" title="Send Bitcoin to this address and you'll get rep in proportion to the amount") #{ btcAddress }
+                p.or <b>or</b>
+                p.shifty-io
+                  a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
+                    img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
+              else
+                h4.check-back Check back here when our sale starts to buy in and help bring Augur to the world
               .logout
                 a(href="/logout") logout
         else
