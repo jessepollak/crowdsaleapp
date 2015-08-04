@@ -84,7 +84,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  res.render('login', {
+  res.render('stormpath/login', {
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
   });
 })
