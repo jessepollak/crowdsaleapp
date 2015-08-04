@@ -26,6 +26,10 @@ section .container {
 	max-width: 800px;
 }
 
+.funds-raised {
+	display: none;
+}
+
 section.brand {
 	background-color: #F7F7F7;
 }
@@ -63,7 +67,7 @@ section.action .login {
 	margin-top: 35px;
 }
 section.action .disclaimer {
-	font-size: 12px;
+	font-size: 14px;
 }
 @media (max-width:770px) {
 	section.action .login {

@@ -5,7 +5,7 @@ html
     link(href='/css/style.css', rel='stylesheet')
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
     link(href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600', rel='stylesheet')
-    link(href="/css/jquery-ui.structure.min.css")
+    link(href="/css/flipclock.css")
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,7 +17,6 @@ html
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
     script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-    script(src="/js/vendor/jquery-ui.min.js")
     script(src="/js/vendor/picturefill.js")
     script.
       function editEthereumAddress() {
@@ -36,7 +35,8 @@ html
     section.brand
       .container
         img.logo(src="/images/augur_logo_600.png" alt="augur logo")
-       <!-- h4 <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised -->
+        h4.funds-raised <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised
+        .timer
     section.action
       .container
         if user
@@ -53,7 +53,7 @@ html
           else
             form.center-block(method='post', role='form')
               .input-group
-                input.form-control(name="ethereumAddress", placeholder="Enter your Ethereum address" data-toggle="tooltip-left" title="Warning! Make sure this is an Ethereum address you have the private key to (meaning: it's not an exchange address). You'll need it for reporting!")
+                input.form-control(name="ethereumAddress", placeholder="Enter your Ethereum address" data-toggle="tooltip-left" title="Warning! Make sure this is an Ethereum address you have the privatekey to (meaning: it's not an exchange address). You'll need it for reporting!")
                 span.input-group-btn
                   button.btn.btn-default(type="submit") Save
           .row
@@ -61,13 +61,8 @@ html
               p
                 img.qrcode.center-block(src="#{ qrCode }")
               p.buy-uri
-<<<<<<< HEAD
-                a(href="#{ buyUri }") #{ btcAddress }
-              p.or <b>or</b>
-=======
                 a(href="#{ buyUri }" data-toggle="tooltip-left" title="Send Bitcoin to this address and you'll get rep in proportion to the amount") #{ btcAddress }
-              p.or or
->>>>>>> 2cb4ad2ff3908adb12a6597bea1391cc46d906ff
+              p.or <b>or</b>
               p.shifty-io
                 a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
                   img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
@@ -78,11 +73,11 @@ html
           .row
             .col-sm-6
               .intro
-                <p>To continue funding our ambitious project of the World's first decentralized, prediction market, we are selling Reputation tokens in this system.</p>
-                <p>Reputation and it's owners are what compose the distributed oracle and determine the outcome of events.  See the video below for a brief introduction of how this works and <a href="http://www.augur.net/blog/what-is-reputation">our blog post</a> for a more in-depth look.</p>
+                <p>To continue funding our ambitious project of the World's first decentralized, prediction market, we are selling Reputation in Augur.</p>
+                <p>Reputation and it's owners are what compose the distributed oracle and determine the outcome of market events.  See the video below for a brief introduction of how this works and <a href="http://www.augur.net/blog/what-is-reputation">our blog post</a> for a more in-depth look.</p>
             .col-sm-5.col-sm-offset-1
               p.login
-                a.btn.btn-primary.btn-lg(href="/login" disabled) Login and get started!
+                a.btn.btn-primary.btn-lg(href="/login") Login and get started!
               p.disclaimer By logging in you agree to <a href="/legal">the terms</a> of the Augur crowd-sale</p>
     section.video
       .container
@@ -181,6 +176,12 @@ html
 
     footer
       
+    script(src="/js/vendor/flipclock.js")
+    script.
+      var timer = $('.timer').FlipClock(123456, {
+        countdown: true,
+        clockFace: 'DailyCounter'
+      });
 
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
