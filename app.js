@@ -13,8 +13,10 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('http://sale.augur.net/blockchain');
 
-var app = module.exports = express();
+var SALTCHARS = process.env.SALTCHARS;
 
+var app = module.exports = express();
+console.log(SALTCHARS);
 app.set('views', './views');
 app.set('view engine', 'jade');
 
@@ -256,7 +258,6 @@ function createToken(salt, secret) {
     .update(salt + secret)
     .digest('base64');
 }
-var SALTCHARS = process.env.SALTCHARS;
 
 function generateSalt(length) {
 
