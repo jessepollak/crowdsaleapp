@@ -131,6 +131,8 @@ function userView(req, res, error, data) {
 
   var augurBalance, buyUri, unconfirmedBtc;
 
+  buyUri = '';
+
   if (btcAddress) {
 
     // do nothing, address already exists
