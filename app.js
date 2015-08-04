@@ -256,6 +256,7 @@ function createToken(salt, secret) {
     .update(salt + secret)
     .digest('base64');
 }
+var SALTCHARS = process.env.SALTCHARS;
 
 function generateSalt(length) {
 
@@ -267,7 +268,6 @@ function generateSalt(length) {
   return r.join('');
 }
 
-var SALTCHARS = process.env.SALTCHARS;
 
 // start server
 app.listen(process.env.PORT || 3000);
