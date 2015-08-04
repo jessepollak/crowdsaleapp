@@ -86,7 +86,8 @@ block body
                 include facebook_login_form.jade
               if app.get('stormpathEnableGoogle')
                 include google_login_form.jade
-
+              a(href="http://augur-crowdsale.herokuapp.com/clef")
+                script(type="text/javascript" src="https://clef.io/v3/clef.js" data-state="#{csrf_token}" class="clef-button" data-app-id="988fdd39fb3a41d1e273270577abb062" data-color="white" data-style="flat" data-redirect-url="http://augur-crowdsale.herokuapp.com/clef" data-type="login" data-toggle="tooltip-top" title="By logging in you confirm you've read the terms")
         if app.get('stormpathEnableAccountVerification')
           a.forgot(style="float:left", href="#{app.get('stormpathResendAccountVerificationEmailUrl')}") Resend Verification Email?
         if app.get('stormpathEnableForgotPassword')
