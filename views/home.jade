@@ -2,10 +2,10 @@ html
   head
     title="Augur - Fund the Future"
 
-    link(href='/css/style.css', rel='stylesheet')
+    link(href="/css/flipclock.css", rel='stylesheet')
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
     link(href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600', rel='stylesheet')
-    link(href="/css/flipclock.css")
+    link(href='/css/style.css', rel='stylesheet')
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,6 +37,7 @@ html
         img.logo(src="/images/augur_logo_600.png" alt="augur logo")
         h4.funds-raised <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised
         .timer
+        h4.sale-starts until sale starts on <b>Monday, August 17th, 12:00 PM EST</b>
     section.action
       .container
         if user
@@ -69,7 +70,7 @@ html
               .logout
                 a(href="/logout") logout
         else
-          h2 Join us in <b>making history</b>
+          h2 Be a part of <b>making history</b>
           .row
             .col-sm-6
               .intro
@@ -178,7 +179,10 @@ html
       
     script(src="/js/vendor/flipclock.js")
     script.
-      var timer = $('.timer').FlipClock(123456, {
+      var now = new Date();
+      var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
+      var secondsUntilSale = (saleDate - now) / 1000;
+      var timer = $('.timer').FlipClock(secondsUntilSale, {
         countdown: true,
         clockFace: 'DailyCounter'
       });

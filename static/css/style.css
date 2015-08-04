@@ -29,6 +29,18 @@ section .container {
 .funds-raised {
 	display: none;
 }
+section.brand .timer {
+	zoom: 0.65;
+	-moz-transform: scale(0.65);
+	width: 622px;
+	margin: 100px auto 10px auto;
+}
+section.brand .timer ul li a div div.inn {
+    background-color: #622A54;
+}
+section.brand h4.sale-starts {
+	font-size: 18px;
+}
 
 section.brand {
 	background-color: #F7F7F7;

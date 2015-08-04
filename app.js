@@ -38,6 +38,7 @@ app.use(stormpath.init(app, {
   application: 'https://api.stormpath.com/v1/applications/62cfhD5ihSuFHvjaZ1DxI3',
   secretKey: process.env.APPSECRET,
   expandCustomData: true,
+  loginView: __dirname + '/views/stormpath/login.jade',
   redirectUrl: '/',
   cacheTTL: 1,
   cacheTTI: 1,
