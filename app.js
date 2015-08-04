@@ -57,6 +57,9 @@ app.use(stormpath.init(app, {
       clientSecret: process.env.GOOGLESECRET,
     },
   },
+  templateContext: {
+    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
+  },
 }));
 
 app.use('/clef', require('./clef'));
@@ -82,12 +85,6 @@ app.get('/', function(req, res) {
     }
   }
 });
-
-app.get('/login', function(req, res) {
-  res.render('stormpath/login', {
-    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
-  });
-})
 
 // handle ethereum address form submission
 app.post('/', function(req, res) {
@@ -148,6 +145,7 @@ function userView(req, res, error, data) {
 
       btcAddress = data.input_address;
       uri = 'bitcoin:' + btcAddress + '?label=Augur';
+      buyUri = uri;
 
       req.user.customData.btcAddress = btcAddress;
       req.user.customData.personWhoReferred = referral;
