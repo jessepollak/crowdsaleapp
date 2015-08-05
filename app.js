@@ -67,7 +67,8 @@ app.get('/', function(req, res) {
   if (!req.user) {
 
     res.render('home', {
-      csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
+      csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
+      saleStarted: getSaleStarted()
     });
 
   } else {
@@ -89,7 +90,8 @@ app.post('/', function(req, res) {
   if (!req.user) {
 
     res.render('home', {
-      csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
+      csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
+      saleStarted: getSaleStarted()
     });
 
   } else {
@@ -225,7 +227,8 @@ function userView(req, res, error, data) {
     referralCode: req.user.customData.referralCode,
     repPercentage: repPercentage * 100,
     buyUri: buyUri, 
-    qrCode: qrcode(buyUri) 
+    qrCode: qrcode(buyUri),
+    saleStarted: getSaleStarted()
   });
 }
 
@@ -234,7 +237,8 @@ app.get('/ref*', function(req, res) {
   referral = req.query.id;
 
   res.render('home', {
-    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT)
+    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
+    saleStarted: getSaleStarted()
   });
 });
 
@@ -242,6 +246,14 @@ app.get('/blockchain', function(req, res) {
   res.send("*ok*");
 });
 
+
+function getSaleStarted() {
+
+  var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
+  var now = new Date();
+
+  return now > saleDate;
+}
 
 function createToken(salt, secret) {
 

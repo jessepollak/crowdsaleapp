@@ -26,9 +26,6 @@ section .container {
 	max-width: 800px;
 }
 
-.funds-raised {
-	display: none;
-}
 section.brand .timer {
 	zoom: 0.65;
 	-moz-transform: scale(0.65);
@@ -90,7 +87,7 @@ section.action h2 b {
 	font-weight: 400;
 }
 section.action h4.check-back {
-    width: 386px;
+    width: 436px;
     margin: 24px auto 20px auto;
     border: 1px solid #DBDCBA;
     padding: 15px 20px;

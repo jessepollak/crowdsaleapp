@@ -35,9 +35,11 @@ html
     section.brand
       .container
         img.logo(src="/images/augur_logo_600.png" alt="augur logo")
-        h4.funds-raised <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised
-        .timer
-        h4.sale-starts until sale starts on <b>Monday, August 17th, 12:00 PM EST</b>
+        if saleStarted
+          h4.funds-raised <b><span class="amount-raised">0.0000</span> BTC</b> in funds raised
+        else
+          .timer
+          h4.sale-starts until sale starts on <b>Monday, August 17th, 12:00 PM EST</b>
     section.action
       .container
         if user
@@ -59,7 +61,7 @@ html
                   button.btn.btn-default(type="submit") Save
           .row
             .col-sm-12
-              if false
+              if saleStarted
                 p
                   img.qrcode.center-block(src="#{ qrCode }")
                 p.buy-uri
@@ -69,7 +71,7 @@ html
                   a(onclick="shapeshift_click(this, event);" href="https://shapeshift.io/shifty.html?destination=#{ btcAddress }&amp;output=BTC")
                     img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
               else
-                h4.check-back Check back here when our sale starts to buy in and help bring Augur to the world
+                h4.check-back Check back here when our sale starts to buy in
               .logout
                 a(href="/logout") logout
         else
@@ -176,19 +178,19 @@ html
               <h6>Forecast Foundation</h6>
               .progress
                 .progress-bar(role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" style="width: 4%;")
-                <span>4%</span
+                <span>4%</span>
 
     footer
-      
-    script(src="/js/vendor/flipclock.js")
-    script.
-      var now = new Date();
-      var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
-      var secondsUntilSale = (saleDate - now) / 1000;
-      var timer = $('.timer').FlipClock(secondsUntilSale, {
-        countdown: true,
-        clockFace: 'DailyCounter'
-      });
+    if !saleStarted
+      script(src="/js/vendor/flipclock.js")
+      script.
+        var now = new Date();
+        var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
+        var secondsUntilSale = (saleDate - now) / 1000;
+        var timer = $('.timer').FlipClock(secondsUntilSale, {
+          countdown: true,
+          clockFace: 'DailyCounter'
+        });
 
     script.
       var $_Tawk_API={},$_Tawk_LoadStart=new Date();
