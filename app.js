@@ -63,7 +63,7 @@ app.get('/', function(req, res) {
 
     res.render('home', {
       csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
-      saleStarted: getSaleStarted()
+      saleStarted: getSaleStarted(req, res)
     });
 
   } else {
@@ -86,7 +86,7 @@ app.post('/', function(req, res) {
 
     res.render('home', {
       csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
-      saleStarted: getSaleStarted()
+      saleStarted: getSaleStarted(req, res)
     });
 
   } else {
@@ -119,15 +119,6 @@ function userView(req, res, error, data) {
   var btcAddress = req.user.customData.btcAddress;
   var btcBalance = 0;
   var repPercentage = 0;
-
-  // check cookie for referrer id and save to user object if it hasn't been
-  if (!req.user.customData.personWhoReferred && req.cookies['ref-id']) {
-
-    console.log('saving referrer id', req.cookies['ref-id']);
-
-    req.user.customData.personWhoReferred = req.cookies['ref-id'];
-    req.user.save(function(err) { if (err) console.error(err) });
-  }
 
   var augurBalance, buyUri, unconfirmedBtc;
 
@@ -202,6 +193,19 @@ function userView(req, res, error, data) {
     }
   });
 
+  // check cookie for referrer id and save to user object if it hasn't been
+  if (!req.user.customData.personWhoReferred && req.cookies['ref-id']) {
+
+    // only save the referral code if it isn't the users
+    if (req.cookies['ref-id'] !== req.user.customData.referralCode) {
+
+      console.log('saving referrer id', req.cookies['ref-id']);
+
+      req.user.customData.personWhoReferred = req.cookies['ref-id'];
+      req.user.save(function(err) { if (err) console.error(err) });
+    }
+  }
+
   res.render('home', {
 
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
@@ -212,7 +216,7 @@ function userView(req, res, error, data) {
     repPercentage: repPercentage * 100,
     buyUri: buyUri, 
     qrCode: qrcode(buyUri),
-    saleStarted: getSaleStarted()
+    saleStarted: getSaleStarted(req, res)
   });
 }
 
@@ -222,7 +226,7 @@ app.get('/ref*', function(req, res) {
 
   res.render('home', {
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
-    saleStarted: getSaleStarted()
+    saleStarted: getSaleStarted(req, res)
   });
 });
 
@@ -231,7 +235,13 @@ app.get('/blockchain', function(req, res) {
 });
 
 
-function getSaleStarted() {
+function getSaleStarted(req, res) {
+
+  if (req.query.forceSaleStarted || req.cookies.forceSaleStarted) {
+
+    if (!req.cookies.forceSaleStarted) res.cookie('forceSaleStarted', '1');
+    return true;
+  }
 
   var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
   var now = new Date();
