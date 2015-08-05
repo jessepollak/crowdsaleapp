@@ -13,8 +13,9 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('http://sale.augur.net/blockchain');
 
-var app = module.exports = express();
+var SALTCHARS = process.env.SALTCHARS;
 
+var app = module.exports = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
 
@@ -56,6 +57,9 @@ app.use(stormpath.init(app, {
       clientId: process.env.GOOGLEID,
       clientSecret: process.env.GOOGLESECRET,
     },
+  },
+  templateContext: {
+    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
   },
 }));
 
@@ -127,6 +131,8 @@ function userView(req, res, error, data) {
 
   var augurBalance, buyUri, unconfirmedBtc;
 
+  buyUri = '';
+
   if (btcAddress) {
 
     // do nothing, address already exists
@@ -142,6 +148,7 @@ function userView(req, res, error, data) {
 
       btcAddress = data.input_address;
       uri = 'bitcoin:' + btcAddress + '?label=Augur';
+      buyUri = uri;
 
       req.user.customData.btcAddress = btcAddress;
       req.user.customData.personWhoReferred = referral;
@@ -273,7 +280,6 @@ function generateSalt(length) {
   return r.join('');
 }
 
-var SALTCHARS = process.env.SALTCHARS;
 
 // start server
 app.listen(process.env.PORT || 3000);
