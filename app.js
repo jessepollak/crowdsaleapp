@@ -13,23 +13,12 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('http://sale.augur.net/blockchain');
 
-var SALTCHARS = process.env.SALTCHARS;
-
 var app = module.exports = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
 
 app.use(express.static('static'));
-
-var HOST_BTC_ADDRESS = '1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp';
-var referral = '';
-
-// define ethereum address form
-var ethereumAddressForm = forms.create({
-  ethereumAddress: forms.fields.string({
-    required: true
-  })
-});
+app.use(cookieParser());
 
 // setup stormpath
 app.use(stormpath.init(app, {
@@ -64,6 +53,8 @@ app.use(stormpath.init(app, {
 }));
 
 app.use('/clef', require('./clef'));
+
+var HOST_BTC_ADDRESS = '1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp';
 
 // main view
 app.get('/', function(req, res) {
@@ -129,9 +120,16 @@ function userView(req, res, error, data) {
   var btcBalance = 0;
   var repPercentage = 0;
 
-  var augurBalance, buyUri, unconfirmedBtc;
+  // check cookie for referrer id and save to user object if it hasn't been
+  if (!req.user.customData.personWhoReferred && req.cookies['ref-id']) {
 
-  buyUri = '';
+    console.log('saving referrer id', req.cookies['ref-id']);
+
+    req.user.customData.personWhoReferred = req.cookies['ref-id'];
+    req.user.save(function(err) { if (err) console.error(err) });
+  }
+
+  var augurBalance, buyUri, unconfirmedBtc;
 
   if (btcAddress) {
 
@@ -151,16 +149,7 @@ function userView(req, res, error, data) {
       buyUri = uri;
 
       req.user.customData.btcAddress = btcAddress;
-      req.user.customData.personWhoReferred = referral;
-
-      req.user.save(function(err) {
-
-        if (err) {
-          if (err.developerMessage) {
-            console.error(err);
-          }
-        }
-      });
+      req.user.save(function(err) { if (err) console.error(err) });
     }
   }
 
@@ -174,22 +163,14 @@ function userView(req, res, error, data) {
       if (req.user.customData.balance < btcBalance || !req.user.customData.balance) {
 
         req.user.customData.balance = btcBalance;
-        req.user.save(function(err) {
-          if (err) {
-            console.error(err);
-          }
-        });
+        req.user.save(function(err) { if (err) console.error(err) });
       } 
 
       if (data.txs[0]) {
         time = data.txs[0].time;
         if (!req.user.customData.time) {
           req.user.customData.time = time;
-          req.user.save(function(err) {
-            if (err) {
-              console.error(err);
-            }
-          });
+          req.user.save(function(err) { if (err) console.error(err) });
         }
       }
 
@@ -214,11 +195,7 @@ function userView(req, res, error, data) {
           repPercentage = req.user.customData.balance / augurBalance;
           if (req.user.customData.repPercentage < repPercentage || !req.user.customData.repPercentage) {
             req.user.customData.repPercentage = repPercentage;
-            req.user.save(function(err) {
-              if (err) {
-                console.error(err);
-              }
-            });
+            req.user.save(function(err) { if (err) console.error(err) });
           }
         }
       });
@@ -241,7 +218,7 @@ function userView(req, res, error, data) {
 
 app.get('/ref*', function(req, res) {
 
-  referral = req.query.id;
+  res.cookie('ref-id', req.query.id, { maxAge: 9000000, httpOnly: true });
 
   res.render('home', {
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
@@ -272,6 +249,7 @@ function createToken(salt, secret) {
 
 function generateSalt(length) {
 
+  var SALTCHARS = process.env.SALTCHARS;
   var i, r = [];
 
   for (i = 0; i < length; ++i) {
