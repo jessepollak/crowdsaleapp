@@ -19,6 +19,21 @@ p {
 	color: #555;
 }
 
+.popover {
+	font-family: Source Sans Pro, Helvetica, san-serif;
+	font-weight: 400;
+	font-size: 16px;
+	color: #555;
+}
+.popover .popover-title {
+	background-color: #c9302c;
+	font-weight: 600;
+	color: #fff;
+}
+.popover .popover-content {
+
+}
+
 section {
 	padding: 30px 0px;
 }
@@ -87,13 +102,14 @@ section.action h2 b {
 	font-weight: 400;
 }
 section.action h4.check-back {
-    width: 436px;
+    max-width: 460px;
     margin: 24px auto 20px auto;
     border: 1px solid #DBDCBA;
     padding: 15px 20px;
     line-height: 1.6em;
-    font-weight: 300;
+    font-weight: 400;
     border-radius: 5px;
+    font-size: 18px;
     background-color: #FFFFE4;
 }
 section.action .login {
@@ -142,6 +158,17 @@ section.action .or {
 }
 section.action .shifty-io {
 	text-align: center;
+}
+section.action .referral {
+    max-width: 477px;
+    font-size: 15px;
+    margin: 30px auto 20px auto;
+    text-align: center;
+    font-weight: 300;
+    line-height: 1.8em;
+}
+section.action .referral b {
+
 }
 section.action .logout {
 	text-align: center;
