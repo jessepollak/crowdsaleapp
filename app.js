@@ -17,6 +17,8 @@ var app = module.exports = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
 
+app.use('/legal', express.static('static/legal.html'));
+app.use('/privacy', express.static('static/privacy.html'));
 app.use(express.static('static'));
 app.use(cookieParser());
 
