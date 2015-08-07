@@ -210,6 +210,7 @@ function userView(req, res, error, data) {
 
   res.render('home', {
 
+    referralLink: false,
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
     ethereumAddress: req.user.customData.ethereumAddress,
     btcBalance: btcBalance / 100000000,

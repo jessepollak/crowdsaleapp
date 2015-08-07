@@ -73,7 +73,8 @@ html
               else
                 h4.check-back Check back here when our sale starts to purchase REP
 
-              .referral <b>Refer a friend</b> and both of you recieve <b>4% bonus REP</b>!<br>Send them to <b>http://sale.augur.net/ref?id=#{ referralCode }</b>
+              if referralLink
+                .referral <b>Refer a friend</b> and both of you recieve <b>4% bonus REP</b>!<br>Send them to <b>http://sale.augur.net/ref?id=#{ referralCode }</b>
               .logout
                 a(href="/logout") logout
         else
