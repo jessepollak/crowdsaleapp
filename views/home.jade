@@ -20,12 +20,12 @@ html
     script(src="/js/vendor/picturefill.js")
     script.
       function editEthereumAddress() {
-        $('section.action .ethereum-address').hide();
+        $('section.action .ethereum-address-set').hide();
         $('section.action form').show();
       }
     script.
       function cancelEdit() {
-        $('section.action .ethereum-address').show();
+        $('section.action .ethereum-address-set').show();
         $('section.action form').hide();
       }
     script.
@@ -46,7 +46,7 @@ html
           h2 Hello, <b>#{ user.fullName }</b>
           h4 You own <b data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Percentage is an estimate. Final reputation will be calulated after sale.">#{ repPercentage }% Reputation*</b> after spending <b>#{ btcBalance } BTC</b>
           if ethereumAddress
-            p.ethereum-address Your <b>Ethereum</b> address is <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
+            .ethereum-address-set Your purchased <b>Reputation</b> will be sent to <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
             form.center-block(method='post', role='form', style="display: none;")
               .input-group
                 input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
@@ -54,11 +54,14 @@ html
                   button.btn.btn-default(type="submit") Save
                   button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
           else
-            form.center-block(method='post', role='form')
-              .input-group
-                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address.")
-                span.input-group-btn
-                  button.btn.btn-default(type="submit") Save
+            .ethereum-address
+              h5 A valid Ethereum address is required to recieve your purchased REP
+              p Best practices should be taken when creating and backing up this address and its associated private key.
+              form(method='post', role='form')
+                .input-group
+                  input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
+                  span.input-group-btn
+                    button.btn.btn-default(type="submit") Save
           .row
             .col-sm-12
               if saleStarted

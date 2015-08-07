@@ -133,19 +133,36 @@ section.action .buy-uri {
 	font-weight: 400;
 	font-size: 18px;
 }
-section.action .ethereum-address {
+section.action .ethereum-address-set {
 	text-align: center;
 	font-weight: 300;
 	font-size: 18px;
 }
-section.action .ethereum-address a {
+section.action .ethereum-address-set a {
 	cursor: pointer;
 	font-weight: 300;
 	font-size: 12px;
 	text-transform: uppercase;
 }
+section.action .ethereum-address {
+border: 1px solid #DBDCBA;
+    border-radius: 5px;
+    background-color: #FFFFE4;
+    margin: 20px auto 0px auto;
+    max-width: 518px;
+    padding: 10px 20px;
+}
+section.action .ethereum-address h5 {
+	font-weight: 600;
+	font-size: 16px;
+}
+section.action .ethereum-address p {
+	font-weight: 300;
+	font-size: 15px;
+}
 section.action form {
-	width: 475px;
+	margin-top: 20px;
+	max-width: 475px;
 }
 section.action img.qrcode {
 	width: 125px;
