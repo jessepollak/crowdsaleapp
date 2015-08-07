@@ -44,12 +44,12 @@ html
       .container
         if user
           h2 Hello, <b>#{ user.fullName }</b>
-          h4 You own <b data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Percentage is an estimate. Final reputation will be calulated after sale">#{ repPercentage }% Reputation*</b> after spending <b>#{ btcBalance } BTC</b>
+          h4 You own <b data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Percentage is an estimate. Final reputation will be calulated after sale.">#{ repPercentage }% Reputation*</b> after spending <b>#{ btcBalance } BTC</b>
           if ethereumAddress
             p.ethereum-address Your <b>Ethereum</b> address is <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
             form.center-block(method='post', role='form', style="display: none;")
               .input-group
-                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address.", value="#{ ethereumAddress }")
+                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
                 span.input-group-btn
                   button.btn.btn-default(type="submit") Save
                   button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
