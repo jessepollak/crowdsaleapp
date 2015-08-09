@@ -56,7 +56,7 @@ app.use(stormpath.init(app, {
 
 app.use('/clef', require('./clef'));
 
-var HOST_BTC_ADDRESS = '1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp';
+var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
 
 // main view
 app.get('/', function(req, res) {

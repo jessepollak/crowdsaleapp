@@ -201,6 +201,7 @@ html
     script.
 
       $(document).ready(function() {
+<<<<<<< HEAD
 
         google.load("visualization", "1", {packages:["corechart"]});
 
@@ -256,6 +257,23 @@ html
             if(data.received > 0) {
               var amount = data.received/100000000;
               $('.amount-raised').text(amount.toString());
+=======
+          var addr = "3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R"
+          var url = 'https://api.chain.com/v1/bitcoin';
+          url += '/addresses/' + addr;
+          url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+          $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+              if(data.received > 0) {
+                var amount = data.received/100000000;
+                $('.amount-raised').text(amount.toString());
+              }
+            },
+            error: function(req, msg, err) {
+                console.log(err);
+>>>>>>> 61155b7b3586d4f185d0141dc0aebd19060c33b5
             }
           },
           error: function(req, msg, err) {
