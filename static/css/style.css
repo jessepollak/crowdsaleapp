@@ -128,11 +128,6 @@ section.action .disclaimer {
 	}
 }
 
-section.action .buy-uri {
-	text-align: center;
-	font-weight: 400;
-	font-size: 18px;
-}
 section.action .ethereum-address-set {
 	text-align: center;
 	font-weight: 300;
@@ -160,18 +155,36 @@ section.action .ethereum-address p {
 	font-weight: 300;
 	font-size: 15px;
 }
+section.action .ethereum-address p b {
+	font-weight: 500;
+}
 section.action form {
 	margin-top: 20px;
 	max-width: 475px;
 }
-section.action img.qrcode {
+
+section.action .btc-desc {
+	max-width: 500px;
+	font-size: 16px;
+	margin: 0px auto 10px auto;
+	text-align: center;
+}
+section.action .btc-uri {
+	display: block;
+	text-align: center;
+	font-weight: 400;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+section.action .btc-qrcode {
 	width: 125px;
-	margin-top: 31px;
+	margin: 10px auto 10px auto;
 }
 section.action .or {
 	text-align: center;
 	font-weight: 300;
 	font-size: 18px;
+	margin: 20px auto;
 }
 section.action .shifty-io {
 	text-align: center;
@@ -192,8 +205,8 @@ section.action .logout {
 	margin: 35px auto 0px auto;
 }
 section.action .logout a {
-    font-weight: 400;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 14px;
     color: #737373;
     text-transform: uppercase;
 }
@@ -203,7 +216,7 @@ section.action .logout a:hover {
 }
 section.action h4 {
 	font-size: 20px;
-	margin: 20px auto 10px auto;
+	margin: 20px auto 30px auto;
 	font-family: Source Sans Pro, Helvetica, san-serif;
 	font-weight: 200;
 	text-align: center;
