@@ -15,9 +15,12 @@ html
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ar,de,es,fr,ja,ko,nl,pt,zh-CN,zh-TW,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
       }
     script(src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit")
+    script(src="//www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}")
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")
     script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
     script(src="/js/vendor/picturefill.js")
+    script(src="/js/vendor/flipclock.js")
+
     script.
       function editEthereumAddress() {
         $('section.action .ethereum-address-set').hide();
@@ -154,21 +157,7 @@ html
             <p>The proceeds from this software sale will be primarily used for making sure Augur developers are incentivized to constantly improve the product beyond their initial release. Specific costs are found from the development of the network infrastructure, paying for servers (for our blockchain.info style solution for people who don't want to run the full client), paying for bandwidth, marketing, as well as legal and business development.</p>
         .row
           .col-xs-12
-            div
-              <h6>Development Compensation &amp; Ops</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="75%" aria-valuemin="0" aria-valuemax="100" style="width: 75%;")
-                  <span>75%</span>
-            div
-              <h6>Legal Contingency Fund</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%;")
-                  <span>15%</span>
-            div
-              <h6>Marketing & Community Outreach</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;")
-                  <span>10%</span>
+            div.chart#fundAllocationChart
 
     section.token-management
       .container
@@ -181,27 +170,13 @@ html
             </p>
         .row
           .col-xs-12
-            div
-              <h6>Public Software Sale</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="80%" aria-valuemin="0" aria-valuemax="100" style="width: 80%;")
-                  <span>80%</span>
-            div
-              <h6>Early Angels & Founding Team</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100" style="width: 16%;")
-                  <span>16%</span>
-            div
-              <h6>Forecast Foundation</h6>
-              .progress
-                .progress-bar(role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100" style="width: 4%;")
-                <span>4%</span>
+            div.chart#fundIssuanceChart
+
 
     footer.container
         .p <a href="/legal">Legal</a><a href="/privacy">Privacy</a><span>Copyright © 2015 Forecast Foundation. All Rights Reserved.</span>
 
     if !saleStarted
-      script(src="/js/vendor/flipclock.js")
       script.
         var now = new Date();
         var saleDate = new Date(Date.UTC(2015, 07, 17, 16, 00, 00));
@@ -223,26 +198,67 @@ html
       })();
 
     script.
-      $(document).ready(function() {        
-        $("[data-toggle=popover]").popover();
-      });
-    script.
+
       $(document).ready(function() {
-          var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
-          var url = 'https://api.chain.com/v1/bitcoin';
-          url += '/addresses/' + addr;
-          url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
-          $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-              if(data.received > 0) {
-                var amount = data.received/100000000;
-                $('.amount-raised').text(amount.toString());
-              }
-            },
-            error: function(req, msg, err) {
-                console.log(err);
+
+        google.load("visualization", "1", {packages:["corechart"]});
+
+        google.setOnLoadCallback(drawAllocationChart);
+        google.setOnLoadCallback(drawIssuanceChart);
+
+        function drawAllocationChart() {
+
+          var data = google.visualization.arrayToDataTable([
+            ['Budget', 'Percentage'],
+            ['Development Compensation & Ops', 75],
+            ['Legal Contingency Fund', 15],
+            ['Marketing & Community Outreach', 10]
+          ]);
+
+          var options = {
+            height: 400,
+            chartArea: { height: 300 }
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('fundAllocationChart'));
+          chart.draw(data, options);
+        }
+
+        function drawIssuanceChart() {
+
+          var data = google.visualization.arrayToDataTable([
+            ['Issued', 'Percentage'],
+            ['Public Software Sale', 80],
+            ['Early Angels & Founding Team', 16],
+            ['Forecast Foundation', 4]
+          ]);
+
+          var options = {
+            height: 400,
+            chartArea: { height: 300 }
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('fundIssuanceChart'));
+          chart.draw(data, options);
+        }
+
+        $("[data-toggle=popover]").popover();
+
+        var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
+        var url = 'https://api.chain.com/v1/bitcoin';
+        url += '/addresses/' + addr;
+        url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
+        $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(data) {
+            if(data.received > 0) {
+              var amount = data.received/100000000;
+              $('.amount-raised').text(amount.toString());
             }
-          });
+          },
+          error: function(req, msg, err) {
+              console.log(err);
+          }
         });
+      });
