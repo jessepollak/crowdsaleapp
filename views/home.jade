@@ -49,30 +49,32 @@ html
                     img.ss-button(src="https://shapeshift.io/images/shifty/xs_dark_altcoins.png")
 
               if ethereumAddress
-                .ethereum-address 
-                  h5 Your purchased REP will be associated with the Ethereum address set here. 
-                  p You may change your pay-out address at any time up until the official launch of Augur.  We will notify you prior to this and confirm this address.
-                  form.center-block.set(method='post', role='form')
-                    .input-group
-                      input.form-control(name="ethereumAddress", data-container="body", value="#{ ethereumAddress }", disabled)
-                      span.input-group-btn
-                        button.btn.btn-default(type="button", onclick="editEthereumAddress()") Change
-                  form.center-block.unset(method='post', role='form', style="display: none;")
-                    .input-group
-                      input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="bottom", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
-                      span.input-group-btn
-                        button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
-                        button.btn.btn-primary(type="submit") Save
+                .col-sm-12
+                  .ethereum-address 
+                    h5 Your purchased REP will be associated with the Ethereum address set here. 
+                    p You may change your pay-out address at any time up until the official launch of Augur.  We will notify you prior to this and confirm this address.
+                    form.center-block.set(method='post', role='form')
+                      .input-group
+                        input.form-control(name="ethereumAddress", data-container="body", value="#{ ethereumAddress }", disabled)
+                        span.input-group-btn
+                          button.btn.btn-default(type="button", onclick="editEthereumAddress()") Change
+                    form.center-block.unset(method='post', role='form', style="display: none;")
+                      .input-group
+                        input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="bottom", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
+                        span.input-group-btn
+                          button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
+                          button.btn.btn-primary(type="submit") Save
               else
-                .ethereum-address
-                  h5 A valid Ethereum address is required to recieve your purchased REP
-                  p If you already have a valid Ethereum address and <b>possess a private-key</b> for it (ie. not an exchange address or similar) you can use that for your REP distribution.  Alternatively, you can <b>create one here</b>.
-                  form(method='post', role='form')
-                    .input-group
-                      input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
-                      span.input-group-btn
-                        button.btn.btn-default(type="button", onclick="createAddressKey()", data-toggle="modal", data-target="#create-account-modal") Create
-                        button.btn.btn-primary(type="submit") Save
+                .col-sm-12
+                  .ethereum-address
+                    h5 A valid Ethereum address is required to recieve your purchased REP
+                    p If you already have a valid Ethereum address and <b>possess a private-key</b> for it (ie. not an exchange address or similar) you can use that for your REP distribution.  Alternatively, you can <b>create one here</b>.
+                    form(method='post', role='form')
+                      .input-group
+                        input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
+                        span.input-group-btn
+                          button.btn.btn-default(type="button", onclick="createAddressKey()", data-toggle="modal", data-target="#create-account-modal") Create
+                          button.btn.btn-primary(type="submit") Save
                         
             else
              .col-sm-12
@@ -80,7 +82,7 @@ html
 
             if referralLink
               .referral <b>Refer a friend</b> and both of you recieve <b>4% bonus REP</b>!<br>Send them to <b>http://sale.augur.net/ref?id=#{ referralCode }</b>
-        
+
           .logout
             a(href="/logout") logout
         else

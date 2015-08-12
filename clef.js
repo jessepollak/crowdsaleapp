@@ -190,14 +190,9 @@ router.post('/logout', function(req, res) {
     console.log(err);
     console.log(response);
     if (response.success) {
-      res.locals.user = '';
-      req.app.user = '';
-      req.app.get('stormpathApplication').user = '';
-      req.stormpathSession.user = '';
-      res.redirect('/');
+      console.log(response)
     } else {
-      console.log(body['error']);
-      res.send('bye');
+      res.redirect('https://sale.augur.net/logout');      
     }
   });
 });
