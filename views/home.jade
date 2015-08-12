@@ -68,7 +68,7 @@ html
             .ethereum-address-set Your purchased <b>REP</b> will be sent to <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
             form.center-block(method='post', role='form', style="display: none;")
               .input-group
-                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
+                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.  In a few days we'll have a way to generate ethereum addresses from the sale app", value="#{ ethereumAddress }")
                 span.input-group-btn
                   button.btn.btn-primary(type="submit") Save
                   button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
