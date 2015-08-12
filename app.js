@@ -58,6 +58,14 @@ app.use('/clef', require('./clef'));
 
 var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
 
+/* At the top, with other redirect methods before other routes */
+app.get('*',function(req,res,next){
+  if(req.headers['x-forwarded-proto']!='https')
+    res.redirect('https://sale.augur.net'+req.url)
+  else
+    next() /* Continue to other routes if we're not redirecting */
+})
+
 // main view
 app.get('/', function(req, res) {
 
