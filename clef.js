@@ -192,7 +192,7 @@ router.post('/logout', function(req, res) {
     if (response.success) {
       console.log(response)
     } else {
-      res.redirect('http://sale.augur.net/logout');      
+      res.redirect('https://sale.augur.net/logout');      
     }
   });
 });
