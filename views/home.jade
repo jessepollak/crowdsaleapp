@@ -75,12 +75,11 @@ html
           else
             .ethereum-address
               h5 A valid Ethereum address is required to recieve your purchased REP
-              p If you already have a valid Ethereum address and <b>possess a private-key</b> for it (ie. not an exchange address or similar) you can use that for your REP distribution.  Alternatively, you can <b>create one here</b>.
+              p If you already have a valid Ethereum address and <b>possess a private-key</b> for it (ie. not an exchange address or similar) you can use that for your REP distribution.  In a few days we'll have a way to generate ethereum addresses from the sale app.
               form(method='post', role='form')
                 .input-group
                   input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
                   span.input-group-btn
-                    button.btn.btn-default(type="button", onclick="createAddressKey()") Create
                     button.btn.btn-primary(type="submit") Save
           .logout
             a(href="/logout") logout
