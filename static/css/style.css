@@ -279,6 +279,28 @@ section.fund-management .member-team p {
 	margin-bottom: 3px;
 }
 
+#create-account-modal .modal-content {
+	padding: 10px 20px;
+	background-color: #DCE5E8;
+}
+#create-account-modal h4 {
+	margin: 8px 0px 8px 0px;
+}
+#create-account-modal p {
+	font-size: 16px;
+}
+#create-account-modal p b {
+	font-weight: 500;
+}
+#create-account-modal .disclaimer p {
+	font-size: 14px;
+}
+#create-account-modal .popover-title {
+	font-size: 14px;
+}
+#create-account-modal .popover-content {
+	font-size: 14px;
+}
 footer {
 	margin-top: 40px;
 	width: 100%;

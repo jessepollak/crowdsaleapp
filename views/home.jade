@@ -20,17 +20,6 @@ html
     script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
     script(src="/js/vendor/picturefill.js")
     script(src="/js/vendor/flipclock.js")
-
-    script.
-      function editEthereumAddress() {
-        $('section.action .ethereum-address-set').hide();
-        $('section.action form').show();
-      }
-    script.
-      function cancelEdit() {
-        $('section.action .ethereum-address-set').show();
-        $('section.action form').hide();
-      }
     script.
       function shapeshift_click(a,e){e.preventDefault();var link=a.href;window.open(link,'1418115287605','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=0,left=0,top=0');return false;}
 
@@ -65,13 +54,20 @@ html
             if referralLink
               .referral <b>Refer a friend</b> and both of you recieve <b>4% bonus REP</b>!<br>Send them to <b>http://sale.augur.net/ref?id=#{ referralCode }</b>
           if ethereumAddress
-            .ethereum-address-set Your purchased <b>REP</b> will be sent to <b>#{ ethereumAddress }</b> <a onclick="editEthereumAddress();">change</a>
-            form.center-block(method='post', role='form', style="display: none;")
-              .input-group
-                input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="top", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
-                span.input-group-btn
-                  button.btn.btn-primary(type="submit") Save
-                  button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
+            .ethereum-address 
+              h5 Your purchased REP will be associated with the Ethereum address set here. 
+              p You may change your pay-out address at any time up until the official launch of Augur.  We will notify you prior to this and confirm this address.
+              form.center-block.set(method='post', role='form')
+                .input-group
+                  input.form-control(name="ethereumAddress", data-container="body", value="#{ ethereumAddress }", disabled)
+                  span.input-group-btn
+                    button.btn.btn-default(type="button", onclick="editEthereumAddress()") Change
+              form.center-block.unset(method='post', role='form', style="display: none;")
+                .input-group
+                  input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address", data-toggle="popover", data-placement="bottom", title="WARNING!", data-trigger="focus", data-content="This must be a valid Ethereum address you have the private key to and not an exchange address or similar.", value="#{ ethereumAddress }")
+                  span.input-group-btn
+                    button.btn.btn-default(type="button", onclick="cancelEdit()") Cancel
+                    button.btn.btn-primary(type="submit") Save
           else
             .ethereum-address
               h5 A valid Ethereum address is required to recieve your purchased REP
@@ -80,7 +76,7 @@ html
                 .input-group
                   input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
                   span.input-group-btn
-                    button.btn.btn-default(type="button", onclick="createAddressKey()") Create
+                    button.btn.btn-default(type="button", onclick="createAddressKey()", data-toggle="modal", data-target="#create-account-modal") Create
                     button.btn.btn-primary(type="submit") Save
           .logout
             a(href="/logout") logout
@@ -177,6 +173,64 @@ html
     footer.container
         .p <a href="/legal">Legal</a><a href="/privacy">Privacy</a><span>Copyright © 2015 Forecast Foundation. All Rights Reserved.</span>
 
+    .modal.fade#create-account-modal
+      .modal-dialog.modal-sm
+        .modal-content
+          h4 Create a new Ethereum address
+          p <b>Enter and confirm your passphrase for this address.</b>
+          form
+            .form-group
+              input(type="password", class="form-control", id="passphrase", placeholder="Enter your passphrase", toggle="popover", data-placement="top", data-trigger="manual", title="Invalid Passphrase", data-content="Please enter a valid passphrase.")
+            .form-group
+              input(type="password", class="form-control", id ="confirm-passphrase", placeholder="Confirm your passphrase", toggle="popover", data-placement="bottom", data-trigger="manual", title="Invalid Passphrase", data-content="Passphrase doesn't match.")
+            .form-group
+              .disclaimer
+                p <b>NOTE:</b> There is no recovery option for this passsphrase, so take the neccisary precations.  You may, however, create a new address and use that instead up until Augur's official launch.
+            .form-group.clearfix
+              button.pull-right(type="button", class="btn btn-primary", onclick="createAddress()") Create
+
+    script.
+
+      function editEthereumAddress() {
+
+        $('section.action .ethereum-address form.set').hide();
+        $('section.action .ethereum-address form.unset').show();
+      }
+
+      function cancelEdit() {
+
+        $('section.action .ethereum-address form.unset').hide();
+        $('section.action .ethereum-address form.set').show();
+      }
+
+      function cancelEdit() {
+
+        $('section.action .ethereum-address form.unset').hide();
+        $('section.action .ethereum-address form.set').show();
+      }
+
+      $('#passphrase').on('input', function() {
+        $('#passphrase').popover('hide')
+      });
+
+      $('#confirm-passphrase').on('input', function() { 
+        $('#confirm-passphrase').popover('hide')
+      });
+
+      function createAddress() {
+
+        var passphrase = $('#passphrase').val();
+        var confirmPassphrase = $('#confirm-passphrase').val();
+
+        if (passphrase == '') {
+          $('#passphrase').popover('show');
+        } else if (passphrase != confirmPassphrase) {
+          $('#confirm-passphrase').popover('show');
+        } else {
+          console.log('matched');
+        }
+      }
+
     if !saleStarted
       script.
         var now = new Date();
@@ -201,7 +255,6 @@ html
     script.
 
       $(document).ready(function() {
-<<<<<<< HEAD
 
         google.load("visualization", "1", {packages:["corechart"]});
 
@@ -246,7 +299,7 @@ html
 
         $("[data-toggle=popover]").popover();
 
-        var addr = "1CVHJM1jMVN1wXiYTj1qqGRh6bXNbZmtUp"
+        var addr = "3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R"
         var url = 'https://api.chain.com/v1/bitcoin';
         url += '/addresses/' + addr;
         url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
@@ -257,23 +310,6 @@ html
             if(data.received > 0) {
               var amount = data.received/100000000;
               $('.amount-raised').text(amount.toString());
-=======
-          var addr = "3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R"
-          var url = 'https://api.chain.com/v1/bitcoin';
-          url += '/addresses/' + addr;
-          url += '?key=de4b1f306bbe25f98dd23c8c02c703c8';
-          $.ajax({
-            url: url,
-            type: 'GET',
-            success: function(data) {
-              if(data.received > 0) {
-                var amount = data.received/100000000;
-                $('.amount-raised').text(amount.toString());
-              }
-            },
-            error: function(req, msg, err) {
-                console.log(err);
->>>>>>> 61155b7b3586d4f185d0141dc0aebd19060c33b5
             }
           },
           error: function(req, msg, err) {
