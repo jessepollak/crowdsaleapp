@@ -311,6 +311,9 @@ section.fund-management .member-team p {
 	font-size: 14px;
 }
 
+#estonia-taxation-modal .modal-content {
+	padding: 0px 20px 20px 20px;
+}
 .estonia {
     text-align: center;
     margin: 30px auto 0px auto;
