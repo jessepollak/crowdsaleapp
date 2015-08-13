@@ -66,14 +66,14 @@ module.exports = {
 
         // Key derivation function parameters
         pbkdf2: {
-            c: 262144,
+            c: 65536,
             dklen: 32,
             hash: "sha256",
             prf: "hmac-sha256"
         },
         scrypt: {
             dklen: 32,
-            n: 262144,
+            n: 65536,
             r: 1,
             p: 8
         }
@@ -347,7 +347,7 @@ module.exports = {
                 c: this.constants.pbkdf2.c,
                 dklen: this.constants.pbkdf2.dklen,
                 prf: this.constants.pbkdf2.prf,
-                salt: salt
+                salt: salt.toString("hex")
             };
         }
 
@@ -424,15 +424,15 @@ module.exports = {
     /**
      * Export formatted JSON to keystore file.
      * (Note: Node.js only!)
-     * @param {Object} json Keystore object.
+     * @param {Object} keyObject Keystore object.
      * @param {function=} cb Callback function (optional).
      * @return {Object}
      */
-    exportToFile: function (json, cb) {
-        var outfile = "UTC--" + new Date().toISOString() + "--" + json.address;
+    exportToFile: function (keyObject, cb) {
+        var outfile = "UTC--" + new Date().toISOString() + "--" + keyObject.address;
         require("fs").writeFile(
             "keystore/" + outfile,
-            JSON.stringify(json),
+            JSON.stringify(keyObject),
             function (ex) {
                 if (ex) throw ex;
                 console.log("Saved to file:\nkeystore/" + outfile);

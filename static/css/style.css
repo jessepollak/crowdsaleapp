@@ -26,12 +26,13 @@ p {
 	color: #555;
 }
 .popover .popover-title {
+	text-transform: uppercase;
 	background-color: #c9302c;
 	font-weight: 600;
 	color: #fff;
 }
 .popover .popover-content {
-
+	font-size: 14px;
 }
 
 section {
@@ -202,7 +203,7 @@ section.action .referral b {
 }
 section.action .logout {
 	text-align: center;
-	margin: 35px auto 0px auto;
+	margin: 15px auto 0px auto;
 }
 section.action .logout a {
     font-weight: 600;
@@ -301,6 +302,20 @@ section.fund-management .member-team p {
 #create-account-modal .popover-content {
 	font-size: 14px;
 }
+
+#download-account-key .modal-content {
+	padding: 0px 20px 20px 20px;
+	background-color: #FFFDD2;
+}
+#download-account-key .modal-content p {
+	font-size: 14px;
+}
+
+.estonia {
+    text-align: center;
+    margin: 30px auto 0px auto;
+}
+
 footer {
 	margin-top: 40px;
 	width: 100%;

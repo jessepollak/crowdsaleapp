@@ -73,8 +73,11 @@ html
                       .input-group
                         input.form-control(name="ethereumAddress", data-container="body", placeholder="Enter your Ethereum address")
                         span.input-group-btn
-                          button.btn.btn-default(type="button", onclick="createAddressKey()", data-toggle="modal", data-target="#create-account-modal") Create
+                          button.btn.btn-default(type="button", data-toggle="modal", data-target="#create-account-modal") Create
                           button.btn.btn-primary(type="submit") Save
+
+              .col-sm-12
+                .center-block.estonia <a data-toggle="modal" data-target="#estonia-taxation-modal">Important information for residence of Estonia</a>
                         
             else
              .col-sm-12
@@ -192,11 +195,30 @@ html
               .disclaimer
                 p <b>NOTE:</b> There is no recovery option for this passsphrase, so take the neccisary precations.  You may, however, create a new address and use that instead up until Augur's official launch.
             .form-group.clearfix
-              button.pull-right(type="button", class="btn btn-primary", onclick="createAddress()") Create
+              button.pull-right(type="button", class="btn btn-primary", onclick="createEthereumKey()") Create
+
+    .modal.fade#download-account-key(data-backdrop="static")
+      .modal-dialog
+        .modal-content
+          h3 IMPORTANT!
+          p An Ethereum address and private key have been created.  You <b>MUST</b> save this private key so you can import it into Augur and/or Ethereum at a later date for accessing your account and making transactions on the network.  
+          p For your security and to limit our liability, we are not storing this key or the password associated with it.  Save this key to a <b>secure place</b> and make a backup.  If for any reason you do lose the key, you may create a new one here up until the official Augur launch.
+          .clearfix
+            a.pull-right.save-button(type="button", class="btn btn-primary", onclick="saveKey()") Save
+
+    .modal.fade##estonia-taxation-modal
+      .modal-dialog
+        .modal-content
+          h3 Tax implication for Estonia residence 
+          p Due to Estonia's taxation of cryptocurrency purchases, special treatment need to be taken for the sale of REP in Augur.  If you are a resident of Estonia, please email Augur at <a href="mailto:support@augur.net">support@augur.net</a> and we'll provide you with resources required to make a purchase. 
+          .clearfix
+            a.pull-right(type="button", class="btn btn-default", data-dismiss="modal") Got it
 
     script(src="/js/keythereum.js")
             
     script.
+
+      var keyJSON;
 
       function editEthereumAddress() {
 
@@ -224,18 +246,61 @@ html
         $('#confirm-passphrase').popover('hide')
       });
 
-      function createAddress() {
+      function createEthereumKey() {
 
         var passphrase = $('#passphrase').val();
         var confirmPassphrase = $('#confirm-passphrase').val();
 
         if (passphrase == '') {
+
           $('#passphrase').popover('show');
+
         } else if (passphrase != confirmPassphrase) {
+
           $('#confirm-passphrase').popover('show');
+
         } else {
-          console.log('matched');
+
+          $('#create-account-modal button').attr('disabled', 'disabled').text('Generating...');
+
+          var dk = keythereum.create();
+
+          var key = keythereum.dump(passphrase, dk.privateKey, dk.salt, dk.iv);
+          keyJSON = JSON.stringify(key);
+
+          // save ethereum address
+          $.post('/', {'ethereumAddress': key.address}, function() {
+
+            // request user to save private key if we successfully stored address
+            $('#create-account-modal').modal('hide');
+            $('#download-account-key').modal('show');
+
+          });
+
         }
+      }
+
+      function saveKey() {
+
+        var link = document.createElement('a');
+
+        if (typeof link.download === 'string') {
+
+          link.href = 'data:application/octet-stream,' + keyJSON;
+          link.download = 'augur_ethereum_private_key.json';
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+        } else {
+
+          window.open(uri);
+        }
+
+        // close modal and refresh page
+        $('#download-account-key').modal('hide');
+        location.href = '/';
       }
 
     if !saleStarted
