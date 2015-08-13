@@ -57,14 +57,20 @@ app.use(stormpath.init(app, {
 app.use('/clef', require('./clef'));
 
 var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
+var PROD_HOST = 'sale.augur.net';
 
-/* At the top, with other redirect methods before other routes */
-app.get('*',function(req,res,next){
-  if(req.headers['x-forwarded-proto']!='https')
-    res.redirect('https://sale.augur.net'+req.url)
-  else
-    next() /* Continue to other routes if we're not redirecting */
-})
+// redirect production site to secure version
+app.get('*', function(req,res,next) {
+
+  if (req.headers['x-forwarded-proto'] != 'https' && req.get('host') == PROD_HOST) {
+
+    res.redirect('https://' + PROD_HOST + req.url);
+
+  } else {
+
+    next();   // continue to other routes if we're not redirecting
+  }
+});
 
 // main view
 app.get('/', function(req, res) {
@@ -235,13 +241,11 @@ app.get('/ref*', function(req, res) {
 
   res.cookie('ref-id', req.query.id, { maxAge: 9000000, httpOnly: true });
 
-  res.render('home', {
-    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
-    saleStarted: getSaleStarted(req, res)
-  });
+  res.redirect(req.protocol + '://' + req.get('host'));
 });
 
 app.get('/blockchain', function(req, res) {
+
   res.send("*ok*");
 });
 
