@@ -283,10 +283,11 @@ html
       function saveKey() {
 
         var link = document.createElement('a');
+        var uri = 'data:application/octet-stream,' + keyJSON;
 
         if (typeof link.download === 'string') {
 
-          link.href = 'data:application/octet-stream,' + keyJSON;
+          link.href = uri;
           link.download = 'augur_ethereum_private_key.json';
 
           document.body.appendChild(link);
