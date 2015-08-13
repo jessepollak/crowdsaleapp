@@ -227,6 +227,7 @@ function userView(req, res, error, data) {
     referralLink: false,
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
     ethereumAddress: req.user.customData.ethereumAddress,
+    userEmail: req.user.email,
     btcBalance: btcBalance / 100000000,
     btcAddress: btcAddress,
     referralCode: req.user.customData.referralCode,

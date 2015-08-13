@@ -200,16 +200,22 @@ html
     .modal.fade#download-account-key(data-backdrop="static")
       .modal-dialog
         .modal-content
-          h3 IMPORTANT!
-          p An Ethereum address and private key have been created.  You <b>MUST</b> save this private key so you can import it into Augur and/or Ethereum at a later date for accessing your account and making transactions on the network.  
-          p For your security and to limit our liability, we are not storing this key or the password associated with it.  Save this key to a <b>secure place</b> and make a backup.  If for any reason you do lose the key, you may create a new one here up until the official Augur launch.
-          .clearfix
-            a.pull-right.save-button(type="button", class="btn btn-primary", onclick="saveKey()") Save
+          h4 IMPORTANT!
+          p A unique Ethereum address and private key have been successfully created.
+          p For your security and to limit our liability, we will not store this key or the password associated with it. You <b>MUST</b> save this private key so it can be imported into Augur and/or Ethereum for accessing your account and making transactions on the network.  Additionally <b>an email will be sent to #{ userEmail }</b> containing the private key data and instructions on importing it for usage with Augur and Ethereum.
+          p If for any reason you lose the key, you may create a new one here up until the official Augur launch.
+          if mobile
+            .clearfix
+              a.pull-right.save-button(type="button", class="btn btn-primary", onclick="saveKey()") Okay
+          else
+            p  Save this key to a <b>secure place</b> and make a backup.  
+            .clearfix
+              a.pull-right.save-button(type="button", class="btn btn-primary", onclick="saveKey()") Save
 
     .modal.fade#estonia-taxation-modal
       .modal-dialog
         .modal-content
-          h3 Tax Implications for Estonia Residents 
+          h4 Tax Implications for Estonia Residents 
           p Due to Estonia's taxation of cryptocurrency purchases, special treatment need to be taken for the sale of REP in Augur.  If you are a resident of Estonia, please email Augur at <a href="mailto:support@augur.net">support@augur.net</a> and we'll provide you with resources required to make a purchase. 
           .clearfix
             a.pull-right(type="button", class="btn btn-default", data-dismiss="modal") Got it
