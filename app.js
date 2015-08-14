@@ -1,4 +1,5 @@
 var express = require('express');
+var mailer = require('postmark')(process.env.POSTMARK_API_TOKEN);
 var stormpath = require('express-stormpath');
 var cookieParser = require('cookie-parser');
 
@@ -13,14 +14,16 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('https://sale.augur.net/blockchain');
 
+var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
+var PROD_HOST = 'sale.augur.net';
+
 var app = module.exports = express();
+
 app.set('views', './views');
 app.set('view engine', 'jade');
 
-app.use('/legal', express.static('static/legal.html'));
-app.use('/privacy', express.static('static/privacy.html'));
-app.use(express.static('static'));
 app.use(cookieParser());
+app.use('/clef', require('./clef'));
 
 // setup stormpath
 app.use(stormpath.init(app, {
@@ -54,10 +57,10 @@ app.use(stormpath.init(app, {
   },
 }));
 
-app.use('/clef', require('./clef'));
-
-var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
-var PROD_HOST = 'sale.augur.net';
+// static handlers
+app.use('/legal', express.static('static/legal.html'));
+app.use('/privacy', express.static('static/privacy.html'));
+app.use(express.static('static'));
 
 // redirect production site to secure version
 app.get('*', function(req,res,next) {
@@ -95,9 +98,10 @@ app.get('/', function(req, res) {
   }
 });
 
-// handle ethereum address form submission
+// handle posts
 app.post('/', function(req, res) {
 
+  // no user, render home
   if (!req.user) {
 
     res.render('home', {
@@ -105,7 +109,8 @@ app.post('/', function(req, res) {
       saleStarted: getSaleStarted(req, res)
     });
 
-  } else {
+  // save manual ethereum address
+  } else if (req.body.ethereumAddress) {
 
     var ethereumAddress = req.body.ethereumAddress;
     var validFormat = ethereumAddress.match(/^0x[a-fA-F0-9][40]$/);
@@ -122,6 +127,29 @@ app.post('/', function(req, res) {
     });
 
     userView(req, res);
+
+  // email generated ethereum key to user
+  } else if (req.body.keyJSON) {
+
+    console.log(req.body.keyJSON);
+
+    postmark.send({
+      
+      "From": "admin@augur.net",
+      "To": "zero@botfarm.com",
+      "Subject": "[Augur Sale] Your Ethereum account key",
+      "TextBody": req.body.keyJSON,
+
+    }, function(error, success) { 
+
+      if (error) {
+
+        console.error("unable to send email: " + error.message);
+        return;
+      }
+
+      console.info("email sent");
+    });
   }
 });
 

@@ -304,15 +304,28 @@ section.fund-management .member-team p {
 }
 
 #download-account-key .modal-content {
-	padding: 0px 20px 20px 20px;
+	padding: 10px 20px 20px 20px;
 	background-color: #FFFDD2;
 }
-#download-account-key .modal-content p {
-	font-size: 14px;
+#download-account-key .modal-content h4 {
+	font-size: 20px;
 }
-
+#download-account-key .modal-content p {
+	font-size: 16px;
+}
+#download-account-key .modal-content .footer {
+	margin-top: 30px;
+}
+#download-account-key .modal-content label {
+    position: relative;
+    top: 8px;
+    left: -18px;
+}
 #estonia-taxation-modal .modal-content {
-	padding: 0px 20px 20px 20px;
+	padding: 10px 20px 20px 20px;
+}
+#estonia-taxation-modal .modal-content p {
+	font-size: 16px;
 }
 .estonia {
     text-align: center;
