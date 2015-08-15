@@ -1,5 +1,5 @@
 var express = require('express');
-var mailer = require('postmark')(process.env.POSTMARK_API_TOKEN);
+var postmark = require('postmark')(process.env.POSTMARK_API_TOKEN);
 var stormpath = require('express-stormpath');
 var cookieParser = require('cookie-parser');
 
@@ -101,6 +101,8 @@ app.get('/', function(req, res) {
 // handle posts
 app.post('/', function(req, res) {
 
+  console.log(req.body);
+
   // no user, render home
   if (!req.user) {
 
@@ -113,8 +115,9 @@ app.post('/', function(req, res) {
   } else if (req.body.ethereumAddress) {
 
     var ethereumAddress = req.body.ethereumAddress;
-    var validFormat = ethereumAddress.match(/^0x[a-fA-F0-9][40]$/);
 
+    // valid address format
+    var validFormat = ethereumAddress.match(/^0x[a-fA-F0-9][40]$/);
     console.log(validFormat);
 
     req.user.customData.ethereumAddress = ethereumAddress;
@@ -124,8 +127,7 @@ app.post('/', function(req, res) {
           console.error(err);
         }
       }
-    });
-
+    })
     userView(req, res);
 
   // email generated ethereum key to user
@@ -133,12 +135,21 @@ app.post('/', function(req, res) {
 
     console.log(req.body.keyJSON);
 
+    var address = req.body.keyJSON.address;
+    var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
+    address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
+
     postmark.send({
-      
+
       "From": "admin@augur.net",
-      "To": "zero@botfarm.com",
+      "To": req.user.email,
       "Subject": "[Augur Sale] Your Ethereum account key",
-      "TextBody": req.body.keyJSON,
+      "TextBody": emailBody,
+      "Attachments": [{
+        "Content": new Buffer(req.body.keyJSON).toString('base64'),
+        "Name": address || 'address',
+        "ContentType": "application/json"
+      }]
 
     }, function(error, success) { 
 
@@ -147,8 +158,6 @@ app.post('/', function(req, res) {
         console.error("unable to send email: " + error.message);
         return;
       }
-
-      console.info("email sent");
     });
   }
 });
