@@ -115,8 +115,8 @@ app.post('/create_key', function(req, res) {
 // email ethereum key
 app.post('/email_key', function(req, res) {
 
-  console.log('emailing key to user');
-  
+  console.info('emailing key to user');
+
   var key = req.body.key;
   var address = key.address;
   var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
