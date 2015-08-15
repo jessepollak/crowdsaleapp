@@ -2,6 +2,7 @@ var express = require('express');
 var postmark = require('postmark')(process.env.POSTMARK_API_TOKEN);
 var stormpath = require('express-stormpath');
 var cookieParser = require('cookie-parser');
+var keythereum = require("keythereum");
 
 var crypto = require('crypto');
 var qrcode = require('yaqrcode');
@@ -98,10 +99,53 @@ app.get('/', function(req, res) {
   }
 });
 
-// handle posts
-app.post('/', function(req, res) {
+// create ethereum key
+app.post('/create_key', function(req, res) {
 
-  console.log(req.body);
+  var passphrase = req.body.passphrase;
+
+  var dk = keythereum.create();
+  key = keythereum.dump(passphrase, dk.privateKey, dk.salt, dk.iv);
+  keyJSON = JSON.stringify(key);
+
+  res.contentType('json');
+  res.send(JSON.stringify(key));
+});
+
+// email ethereum key
+app.post('/email_key', function(req, res) {
+
+  console.log('emailing key to user');
+  
+  var key = req.body.key;
+  var address = key.address;
+  var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
+  address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
+
+  postmark.send({
+
+    "From": "admin@augur.net",
+    "To": req.user.email,
+    "Subject": "[Augur Sale] Your Ethereum account key",
+    "TextBody": emailBody,
+    "Attachments": [{
+      "Content": new Buffer(key).toString('base64'),
+      "Name": address || 'ethereumKey',
+      "ContentType": "application/json"
+    }]
+
+  }, function(error, success) { 
+
+    if (error) {
+
+      console.error("unable to send email: " + error.message);
+      return;
+    }
+  });
+
+});
+
+app.post('/', function(req, res) {
 
   // no user, render home
   if (!req.user) {
@@ -129,36 +173,6 @@ app.post('/', function(req, res) {
       }
     })
     userView(req, res);
-
-  // email generated ethereum key to user
-  } else if (req.body.keyJSON) {
-
-    console.log(req.body.keyJSON);
-
-    var address = req.body.keyJSON.address;
-    var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
-    address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
-
-    postmark.send({
-
-      "From": "admin@augur.net",
-      "To": req.user.email,
-      "Subject": "[Augur Sale] Your Ethereum account key",
-      "TextBody": emailBody,
-      "Attachments": [{
-        "Content": new Buffer(req.body.keyJSON).toString('base64'),
-        "Name": address || 'address',
-        "ContentType": "application/json"
-      }]
-
-    }, function(error, success) { 
-
-      if (error) {
-
-        console.error("unable to send email: " + error.message);
-        return;
-      }
-    });
   }
 });
 

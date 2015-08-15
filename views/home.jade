@@ -196,7 +196,6 @@ html
               .disclaimer
                 p <b>NOTE:</b> There is no recovery option for this passsphrase, so take the neccisary precations.  You may, however, create a new address and use that instead up until Augur's official launch.
             .form-group.clearfix
-              button.pull-right#test(type="button", class="btn btn-primary", style="display: none;") Generating...
               button.pull-right(type="button", class="btn btn-primary", onclick="createEthereumKey()") Create
 
     .modal.fade#download-account-key(data-backdrop="static")
@@ -258,8 +257,6 @@ html
 
       function createEthereumKey() {
 
-        $('#test').show();
-
         var passphrase = $('#passphrase').val();
         var confirmPassphrase = $('#confirm-passphrase').val();
 
@@ -273,21 +270,33 @@ html
 
         } else {
 
-          $('#create-account-modal button').attr('disabled', 'disabled').text('Generating...');
+          $('#create-account-modal button').text('Generating...').attr('disabled', 'disabled');
 
-          var dk = keythereum.create();
+          // create ethereum key
+          $.post('/create_key', {'passphrase': passphrase}, function(result) {
 
-          key = keythereum.dump(passphrase, dk.privateKey, dk.salt, dk.iv);
-          keyJSON = JSON.stringify(key);
-
-          // save ethereum address
-          $.post('/', {'ethereumAddress': key.address}, function() {
+            console.log(result);
+            key = result;
+            keyJSON = JSON.stringify(key);
 
             // request user to save private key if we successfully stored address
             $('#create-account-modal').modal('hide');
             $('#download-account-key').modal('show');
 
           });
+
+          //var dk = keythereum.create();
+          //key = keythereum.dump(passphrase, dk.privateKey, dk.salt, dk.iv);
+          //keyJSON = JSON.stringify(key);
+
+          // save ethereum address
+          //$.post('/', {'ethereumAddress': key.address}, function() {
+
+            // request user to save private key if we successfully stored address
+            //$('#create-account-modal').modal('hide');
+            //$('#download-account-key').modal('show');
+
+          //});
 
         }
       }
@@ -312,8 +321,12 @@ html
         }
 
         // email key to user
+        console.log('emailin...');
+        console.log($('#email-key').is(':checked') );
+
         if ( $('#email-key').is(':checked') ) {
-          $.post('/', {'keyJSON': keyJSON}, function() {
+          console.log('posting...');
+          $.post('/email_key', {'key': key}, function() {
             console.log('emailing ethereum key to user');
           });
         }
