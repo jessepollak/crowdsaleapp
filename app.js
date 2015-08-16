@@ -116,7 +116,7 @@ app.post('/create_key', function(req, res) {
 app.post('/email_key', function(req, res) {
 
   console.info('emailing key to user');
-  var possKey = req.key
+  var possKey = req.key;
   console.log('key'+possKey.toString());
   console.log(req);
   console.log(req.toString());
