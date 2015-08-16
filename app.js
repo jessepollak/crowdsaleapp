@@ -116,10 +116,11 @@ app.post('/create_key', function(req, res) {
 app.post('/email_key', function(req, res) {
 
   console.info('emailing key to user');
-  var possKey = req.key;
-  console.log('key'+possKey.toString());
   console.log(req);
-  console.log(req.toString());
+  console.log(req.toString()+'reqqqqqq');
+  var keyPoss = req.param('key');
+  console.log(keyPoss);
+  console.log(keyPoss.toString+'aaa');
   var key = req.body.key;
   console.log('key'+key);
   console.log('keyBuffer'+new Buffer(key).toString('base64'));
