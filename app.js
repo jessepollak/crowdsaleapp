@@ -117,7 +117,7 @@ app.post('/email_key', function(req, res) {
 
   console.info('emailing key to user');
   var key = req.body.key;
-  var address = key.address;
+  var address = req.body.address;
   time = new Date().getTime();
   var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
   address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
