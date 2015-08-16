@@ -279,9 +279,11 @@ html
             key = result;
             keyJSON = JSON.stringify(key);
 
-            // request user to save private key if we successfully stored address
-            $('#create-account-modal').modal('hide');
-            $('#download-account-key').modal('show');
+            $.post('/', {'ethereumAddress': key.address}, function() {
+              // request user to save private key if we successfully stored address
+              $('#create-account-modal').modal('hide');
+              $('#download-account-key').modal('show');
+            });
 
           });
 
