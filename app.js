@@ -116,12 +116,9 @@ app.post('/create_key', function(req, res) {
 app.post('/email_key', function(req, res) {
 
   console.info('emailing key to user');
-  var keyPoss = req.param('key');
-  console.log(keyPoss+'afdsaffsfwf');
-  console.log(keyPoss.toString()+'aasfasfwefafa');
   var key = req.body.key;
-  console.log('keyBuffer'+new Buffer(key).toString('base64'));
   var address = key.address;
+  time = new Date().getTime();
   var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
   address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
 
@@ -132,9 +129,9 @@ app.post('/email_key', function(req, res) {
     "Subject": "[Augur Sale] Your Ethereum account key",
     "TextBody": emailBody,
     "Attachments": [{
-      "Content": new Buffer(key).toString('base64'),
-      "Name": address || 'ethereumKey',
-      "ContentType": "application/json"
+      "Content": key,
+      "Name": (("UTC--" + time.toString() + "--" + address) || 'ethereumKey'),
+      "ContentType": "application/octet-stream"
     }]
 
   }, function(error, success) { 

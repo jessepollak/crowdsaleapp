@@ -325,7 +325,7 @@ html
         console.log($('#email-key').is(':checked') );
 
         if ( $('#email-key').is(':checked') ) {
-          $.post('/email_key', {'key': key}, function() {
+          $.post('/email_key', {'key': keyJSON}, function() {
             console.log('emailing ethereum key to user');
           });
         }
