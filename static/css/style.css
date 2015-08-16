@@ -26,12 +26,13 @@ p {
 	color: #555;
 }
 .popover .popover-title {
+	text-transform: uppercase;
 	background-color: #c9302c;
 	font-weight: 600;
 	color: #fff;
 }
 .popover .popover-content {
-
+	font-size: 14px;
 }
 
 section {
@@ -202,7 +203,7 @@ section.action .referral b {
 }
 section.action .logout {
 	text-align: center;
-	margin: 35px auto 0px auto;
+	margin: 15px auto 0px auto;
 }
 section.action .logout a {
     font-weight: 600;
@@ -277,6 +278,58 @@ section.fund-management .member-team p {
 section.fund-management .member-team p {
 	font-size: 14px;
 	margin-bottom: 3px;
+}
+
+#create-account-modal .modal-content {
+	padding: 10px 20px;
+	background-color: #DCE5E8;
+}
+#create-account-modal h4 {
+	margin: 8px 0px 8px 0px;
+}
+#create-account-modal p {
+	font-size: 16px;
+}
+#create-account-modal p b {
+	font-weight: 500;
+}
+#create-account-modal .disclaimer p {
+	font-size: 14px;
+}
+#create-account-modal .popover-title {
+	font-size: 14px;
+}
+#create-account-modal .popover-content {
+	font-size: 14px;
+}
+
+#download-account-key .modal-content {
+	padding: 10px 20px 20px 20px;
+	background-color: #FFFDD2;
+}
+#download-account-key .modal-content h4 {
+	font-size: 20px;
+}
+#download-account-key .modal-content p {
+	font-size: 16px;
+}
+#download-account-key .modal-content .footer {
+	margin-top: 30px;
+}
+#download-account-key .modal-content label {
+    position: relative;
+    top: 8px;
+    left: -18px;
+}
+#estonia-taxation-modal .modal-content {
+	padding: 10px 20px 20px 20px;
+}
+#estonia-taxation-modal .modal-content p {
+	font-size: 16px;
+}
+.estonia {
+    text-align: center;
+    margin: 30px auto 0px auto;
 }
 
 footer {

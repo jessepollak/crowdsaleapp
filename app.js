@@ -1,6 +1,8 @@
 var express = require('express');
+var postmark = require('postmark')(process.env.POSTMARK_API_TOKEN);
 var stormpath = require('express-stormpath');
 var cookieParser = require('cookie-parser');
+var keythereum = require("keythereum");
 
 var crypto = require('crypto');
 var qrcode = require('yaqrcode');
@@ -13,15 +15,14 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('https://sale.augur.net/blockchain');
 
-var clef = require('./clef');
+var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
+var PROD_HOST = 'sale.augur.net';
 
 var app = module.exports = express();
+
 app.set('views', './views');
 app.set('view engine', 'jade');
 
-app.use('/legal', express.static('static/legal.html'));
-app.use('/privacy', express.static('static/privacy.html'));
-app.use(express.static('static'));
 app.use(cookieParser());
 
 // setup stormpath
@@ -56,10 +57,27 @@ app.use(stormpath.init(app, {
   },
 }));
 
-var clef = require('./clef')
+// add clef logic in
+var clef = require('./clef');
 clef(app)
 
-var HOST_BTC_ADDRESS = '3N6S9PLVizPuf8nZkhVzp11PKhTiuTVE6R';
+// static handlers
+app.use('/legal', express.static('static/legal.html'));
+app.use('/privacy', express.static('static/privacy.html'));
+app.use(express.static('static'));
+
+// redirect production site to secure version
+app.get('*', function(req,res,next) {
+
+  if (req.headers['x-forwarded-proto'] != 'https' && req.get('host') == PROD_HOST) {
+
+    res.redirect('https://' + PROD_HOST + req.url);
+
+  } else {
+
+    next();   // continue to other routes if we're not redirecting
+  }
+});
 
 /* At the top, with other redirect methods before other routes */
 app.get('*',function(req,res,next){
@@ -92,9 +110,55 @@ app.get('/', function(req, res) {
   }
 });
 
-// handle ethereum address form submission
+// create ethereum key
+app.post('/create_key', function(req, res) {
+
+  var passphrase = req.body.passphrase;
+
+  var dk = keythereum.create();
+  key = keythereum.dump(passphrase, dk.privateKey, dk.salt, dk.iv);
+  keyJSON = JSON.stringify(key);
+
+  res.contentType('json');
+  res.send(JSON.stringify(key));
+});
+
+// email ethereum key
+app.post('/email_key', function(req, res) {
+
+  console.info('emailing key to user');
+  var key = req.body.key;
+  var address = req.body.address;
+  time = new Date().getTime();
+  var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " +
+  address + " you generated at sale.augur.net\n\nThis key is extremely important, don't lose this file or your password.  Please make a backup (or multiple backups).  Come Augur launch you'll be able to import this into the Augur client.  If you'd like to import into Geth instead (to run a local Ethereum client) install go-ethereum from https://ethereum.org/cli and if you're on Mac go to ~/Library/Ethereum/keystore and paste this file in, if on Linux paste it in ~/.ethereum/keystore, and if on Windows paste it in ~/AppData/Roaming/Ethereum/keystore.  You've now imported your key into geth and can unlock it with your password using geth --unlock \"" + address + "\"" + " console then hitting enter.  However, note that this is not necessary and you will be able to import your key into a blockchain.info style wallet on the Augur site before launch.";
+
+  postmark.send({
+
+    "From": "admin@augur.net",
+    "To": req.user.email,
+    "Subject": "[Augur Sale] Your Ethereum account key",
+    "TextBody": emailBody,
+    "Attachments": [{
+      "Content": new Buffer(key).toString('base64'),
+      "Name": (("UTC--" + time.toString() + "--" + address) || 'ethereumKey'),
+      "ContentType": "application/octet-stream"
+    }]
+
+  }, function(error, success) {
+
+    if (error) {
+
+      console.error("unable to send email: " + error.message);
+      return;
+    }
+  });
+
+});
+
 app.post('/', function(req, res) {
 
+  // no user, render home
   if (!req.user) {
 
     res.render('home', {
@@ -102,11 +166,13 @@ app.post('/', function(req, res) {
       saleStarted: getSaleStarted(req, res)
     });
 
-  } else {
+  // save manual ethereum address
+  } else if (req.body.ethereumAddress) {
 
     var ethereumAddress = req.body.ethereumAddress;
-    var validFormat = ethereumAddress.match(/^0x[a-fA-F0-9][40]$/);
 
+    // valid address format
+    var validFormat = ethereumAddress.match(/^0x[a-fA-F0-9][40]$/);
     console.log(validFormat);
 
     req.user.customData.ethereumAddress = ethereumAddress;
@@ -116,8 +182,7 @@ app.post('/', function(req, res) {
           console.error(err);
         }
       }
-    });
-
+    })
     userView(req, res);
   }
 });
@@ -168,7 +233,7 @@ function userView(req, res, error, data) {
 
         req.user.customData.balance = btcBalance;
         req.user.save(function(err) { if (err) console.error(err) });
-      } 
+      }
 
       if (data.txs[0]) {
         time = data.txs[0].time;
@@ -224,11 +289,12 @@ function userView(req, res, error, data) {
     referralLink: false,
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
     ethereumAddress: req.user.customData.ethereumAddress,
+    userEmail: req.user.email,
     btcBalance: btcBalance / 100000000,
     btcAddress: btcAddress,
     referralCode: req.user.customData.referralCode,
     repPercentage: repPercentage * 100,
-    buyUri: buyUri, 
+    buyUri: buyUri,
     qrCode: qrcode(buyUri),
     saleStarted: getSaleStarted(req, res)
   });
@@ -238,13 +304,11 @@ app.get('/ref*', function(req, res) {
 
   res.cookie('ref-id', req.query.id, { maxAge: 9000000, httpOnly: true });
 
-  res.render('home', {
-    csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
-    saleStarted: getSaleStarted(req, res)
-  });
+  res.redirect(req.protocol + '://' + req.get('host'));
 });
 
 app.get('/blockchain', function(req, res) {
+
   res.send("*ok*");
 });
 
