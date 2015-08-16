@@ -120,7 +120,7 @@ app.post('/email_key', function(req, res) {
   var address = req.body.address;
   time = new Date().getTime();
   var emailBody = req.user.fullName + ",\n\nAttached to this email, please find your Ethereum private key for the account " + 
-  address + " you generated at sale.augur.net\n\n[insert copy regarding importance of this key and instructions on importing into geth]";
+  address + " you generated at sale.augur.net\n\nThis key is extremely important, don't lose this file or your password.  Please make a backup (or multiple backups).  Come Augur launch you'll be able to import this into the Augur client.  If you'd like to import into Geth instead (to run a local Ethereum client) install go-ethereum from https://ethereum.org/cli and if you're on Mac go to ~/Library/Ethereum/keystore and paste this file in, if on Linux paste it in ~/.ethereum/keystore, and if on Windows paste it in ~/AppData/Roaming/Ethereum/keystore.  You've now imported your key into geth and can unlock it with your password using geth --unlock \"" + address + "\"" + " console then hitting enter.  However, note that this is not necessary and you will be able to import your key into a blockchain.info style wallet on the Augur site before launch.";
 
   postmark.send({
 
