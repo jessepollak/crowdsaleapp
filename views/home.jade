@@ -305,11 +305,10 @@ html
 
         var link = document.createElement('a');
         var uri = 'data:application/octet-stream,' + keyJSON;
-
         if (typeof link.download === 'string') {
-
+          time = new Date().getTime();
           link.href = uri;
-          link.download = key.address;
+          link.download = "UTC--" + time.toString() + "--" + key.address;
 
           document.body.appendChild(link);
           document.body.removeChild(link);
