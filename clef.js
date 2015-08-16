@@ -11,83 +11,100 @@ var csrf = require('csurf');
 var APP_ID = process.env.CLEFID,
     APP_SECRET = process.env.CLEFSECRET;
 
-var accountName;
 
-function stormpathLoginReg(first, last, email, clefID, req, res, app) {
-  clefID = clefID.toString()+'augur';
+function getTime() {
+  return (new Date()).getTime()
+}
+
+function generateUsername(clefID) {
+  return "__clef_" + clefID
+}
+
+function generatePassword() {
+  var base = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)
+  base += base[0].toUpperCase()
+  return base
+}
+
+function stormpathLoginReg(first, last, email, clefID, req, res) {
   // also, if already have acc. / already exists when trying to create or auth. let the user know
-  getAccount(email, app, req, function() {
-    if(accountName) {
-      // login
-      account = authenticate(email, clefID, req, res, app);
-    }
-    else {
+  getAccount({ email: email, clefID: clefID }, req, function(account) {
+    if (account) {
+      authenticate(account, req, res);
+    } else {
       var account = {
         givenName: first,
         surname: last,
-        username: email,
+        // we use username to store the clefID because it is the only
+        // unused property that is searchable in Stormpath.
+        //
+        // See this StackOverflow answer by their CTO:
+        //
+        // http://stackoverflow.com/questions/28136157/how-to-search-for-users-by-id-and-customdata-in-stormpath
+        //
+        username: generateUsername(clefID),
         email: email,
-        password: clefID,
+        password: generatePassword(),
       }
+
       // make new acc then login
-      createAccount(account, email, clefID, req, res, app);
-    };
-  });
-}
-
-function createAccount(account, email, clefID, req, res, app) {
-  req.app.get('stormpathApplication').createAccount(account, function(err, account) {
-    if (err) console.log(err);
-    console.log(account)
-    var account = authenticate(email, clefID, req, res, app);
-    return account;
-  });
-}
-
-function getAccount(email, app, req, callback) {
-  req.app.get('stormpathApplication').getAccounts({email: email}, function(err, accounts) {
-    if (err) console.log(err);
-    console.log(accounts);
-    // will basically try to authenticate an acc. w/ this email & clefID, if returns an error
-    // upon auth then acc w/ that email already exists but not a clef acc.
-    if(accounts.items.length) {
-      setAccountName(accounts.items[0].givenName, callback); 
-    }
-    if(accounts.size == 0) {
-      setAccountName(0, callback);
+      createAccount(account, email, clefID, req, res);
     }
   });
 }
 
-function setAccountName(name, callback) {
-    accountName = name;
-    callback();
-}
-
-//using username and password
-function authenticate(email, pass, req, res, app) {
-  req.app.get('stormpathApplication').authenticateAccount({
-    username: email,
-    password: pass,
-  }, function (err, result) {
-      try {
-        if (err) throw err;
-        var account = result.account;
-        res.locals.user = account;
-        req.app.user = account;
-        req.app.get('stormpathApplication').user = account;
-        req.stormpathSession.user = account.href;
-        var url = req.query.next || req.app.get('stormpathRedirectUrl');
-        res.redirect(302, url);
-        return account;
-      }
-      catch(exception) {
-        res.redirect(302, '/login');
-        return 0;
-      }
+function createAccount(account, email, clefID, req, res) {
+  req.app
+    .get('stormpathApplication')
+    .createAccount(account, function(err, account) {
+      if (err) console.log(err);
+      return authenticate(account, req, res);
     }
   );
 }
+
+function getAccount(data, req, callback) {
+  req.app
+    .get('stormpathApplication')
+    .getAccounts({username: generateUsername(data.clefID)}, function(err, accounts) {
+      if (err) console.log(err);
+
+      // if there is a user with the username matching the clefID, return
+      // that user
+      if(accounts.items.length > 0) {
+        callback(accounts.items[0])
+      } else {
+        req.app
+          .get('stormpathApplication')
+          .getAccounts({email: data.email}, function(err, accounts) {
+            if (err) console.log(err)
+
+            // if there is a user with the email matching, return that user
+            if (accounts.items.length > 0) {
+              callback(accounts.items[0])
+            } else {
+              // if there isn't a user with matching middleName or email,
+              // return no user
+              callback()
+            }
+          })
+      }
+  });
+
+}
+
+function authenticate(account, req, res) {
+    res.locals.user = account;
+    req.app.user = account;
+    req.app.get('stormpathApplication').user = account;
+    req.stormpathSession.user = account.href;
+    req.stormpathSession.loggedInAt = getTime()
+
+    var url = req.query.next || req.app.get('stormpathRedirectUrl');
+    res.redirect(302, url);
+}
+
+
 
 function checkToken(token, secret) {
   if ('string' != typeof token) return false;
@@ -121,9 +138,7 @@ router.get('/', function(req, res) {
   //    return res.status(403).send("Oops, the state parameter didn't match what was passed in to the Clef button.");
   //}
   var user = req.user;
-  
   var code = req.param('code');
-  
   var state = req.param('state');
 
   //console.log(state.toString());
@@ -187,14 +202,43 @@ router.post('/logout', function(req, res) {
 
   request.post({url: logoutURL, form:form}, function(err, response, body) {
     var response = JSON.parse(body);
-    console.log(err);
-    console.log(response);
     if (response.success) {
-      console.log(response)
+      getAccount({ clefID: response.clef_id }, req, function(account) {
+        if (account) {
+          account.customData.loggedOutAt = (new Date()).getTime()
+          account.save()
+
+          res.status(200).send()
+        } else {
+          res.status(500).send({ error: 'No user' })
+        }
+      })
     } else {
-      res.redirect('https://sale.augur.net/logout');      
+      res.status(500).send({ error: response.error })
     }
   });
 });
 
-module.exports = router
+
+/**
+*
+* This middleware checks whether a user is logged out with Clef and if they
+* are it logs them out of the application.
+*
+**/
+var clefLogoutMiddleware = function(req, res, next) {
+  if (req.user) {
+    if (req.user.customData.loggedOutAt && req.stormpathSession.loggedInAt && req.stormpathSession.loggedInAt < req.user.customData.loggedOutAt) {
+      req.stormpathSession.destroy()
+      res.redirect('/')
+    }
+  }
+  next()
+}
+
+function registerExpressApplication(app) {
+  app.use(clefLogoutMiddleware)
+  app.use('/clef', router)
+}
+
+module.exports = registerExpressApplication

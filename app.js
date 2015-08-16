@@ -13,6 +13,8 @@ var blockchain = require('blockchain.info');
 var blockexplorer = blockchain.blockexplorer;
 var receive = new blockchain.Receive('https://sale.augur.net/blockchain');
 
+var clef = require('./clef');
+
 var app = module.exports = express();
 app.set('views', './views');
 app.set('view engine', 'jade');
