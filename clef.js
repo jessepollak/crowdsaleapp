@@ -73,7 +73,7 @@ function getAccount(data, req, callback) {
       // that user
       if(accounts.items.length > 0) {
         callback(accounts.items[0])
-      } else {
+      } else if (data.email) {
         req.app
           .get('stormpathApplication')
           .getAccounts({email: data.email}, function(err, accounts) {
@@ -81,13 +81,19 @@ function getAccount(data, req, callback) {
 
             // if there is a user with the email matching, return that user
             if (accounts.items.length > 0) {
-              callback(accounts.items[0])
+              var account = accounts.items[0]
+              account.username = generateUsername(data.clefID)
+              account.save(function() {
+                callback(account)
+              })
             } else {
               // if there isn't a user with matching middleName or email,
               // return no user
               callback()
             }
           })
+      } else {
+        callback()
       }
   });
 
@@ -163,7 +169,6 @@ router.get('/', function(req, res) {
         var userData = JSON.parse(body)['info'];
         if(userData) {
           var userID = userData.id;
-          console.log(userID);
           var email = userData.email;
           var first = userData.first_name;
           var last = userData.last_name;
@@ -193,7 +198,6 @@ router.get('/', function(req, res) {
 router.post('/logout', function(req, res) {
   var token = req.param('logout_token');
   var logoutURL = 'https://clef.io/api/v1/logout';
-  console.log('logging out');
   var form = {
     app_id: APP_ID,
     app_secret: APP_SECRET,

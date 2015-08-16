@@ -56,15 +56,15 @@ app.use(stormpath.init(app, {
     csrf_token: createToken(generateSalt(10), process.env.CSRFSALT),
   },
 }));
+// static handlers
+app.use('/legal', express.static('static/legal.html'));
+app.use('/privacy', express.static('static/privacy.html'));
+app.use(express.static('static'));
 
 // add clef logic in
 var clef = require('./clef');
 clef(app)
 
-// static handlers
-app.use('/legal', express.static('static/legal.html'));
-app.use('/privacy', express.static('static/privacy.html'));
-app.use(express.static('static'));
 
 // redirect production site to secure version
 app.get('*', function(req,res,next) {
