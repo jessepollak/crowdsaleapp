@@ -129,7 +129,7 @@ app.post('/email_key', function(req, res) {
     "Subject": "[Augur Sale] Your Ethereum account key",
     "TextBody": emailBody,
     "Attachments": [{
-      "Content": key,
+      "Content": new Buffer(key).toString('base64'),
       "Name": (("UTC--" + time.toString() + "--" + address) || 'ethereumKey'),
       "ContentType": "application/octet-stream"
     }]
